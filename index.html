@@ -3652,7 +3652,7 @@ async function pool(tasks, n) {
   const KEY = 'aep_gemini_key';
   const get = k => { try { return localStorage.getItem(k) || ''; } catch { return ''; } };
   const put = (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch { } };
-  const MODELS = ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash'];
+  const MODELS = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-flash-latest', 'gemini-3.5-flash-lite', 'gemini-flash-lite-latest']; // first that answers; 404 / 429 / 503 move on
 
   async function gemini(prompt, opts = {}) {
     const key = get(KEY);
