@@ -3664,28 +3664,35 @@ async function pool(tasks, n) {
   const put = (k, v) => { try { v ? localStorage.setItem(k, v) : localStorage.removeItem(k); } catch { } };
   const MODELS = ['gemini-3.8-flash', 'gemini-3.5-flash', 'gemini-flash-latest', 'gemini-3.5-flash-lite', 'gemini-flash-lite-latest']; // first that answers; 404 / 429 / 503 move on
 
+  // several keys (one per line) are used in turn: a key out of quota or a busy model just moves on to the next
+  const keyList = () => get(KEY).split(/[\s,;]+/).filter(k => k.length > 20);
+  let rot = 0;
   async function gemini(prompt, opts = {}) {
-    const key = get(KEY);
-    if (!key) { setTimeout(keyDialog, 0); throw { code: 'no_key', message: 'no key' }; }
-    let last;
+    const keys = keyList();
+    if (!keys.length) { setTimeout(keyDialog, 0); throw { code: 'no_key', message: 'no key' }; }
+    let last, badKeys = 0;
     for (const m of MODELS) {
-      let r;
-      try {
-        r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
-          method: 'POST', signal: opts.signal, headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
-          body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0.7 } })
-        });
-      } catch (e) { if (opts.signal?.aborted) throw { code: 'cancelled' }; last = { code: 'upstream_error', message: String(e) }; continue; }
-      const j = await r.json().catch(() => ({}));
-      if (r.ok) {
-        const text = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('');
-        if (text.trim()) return { text, truncated: j.candidates?.[0]?.finishReason === 'MAX_TOKENS' };
-        last = { code: 'empty_completion', message: 'empty' }; continue;
+      for (let i = 0; i < Math.min(keys.length, 4); i++) {
+        const key = keys[(rot + i) % keys.length];
+        let r;
+        try {
+          r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
+            method: 'POST', signal: opts.signal, headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
+            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0.7 } })
+          });
+        } catch (e) { if (opts.signal?.aborted) throw { code: 'cancelled' }; last = { code: 'upstream_error', message: String(e) }; continue; }
+        const j = await r.json().catch(() => ({}));
+        if (r.ok) {
+          const text = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('');
+          if (text.trim()) { rot = (rot + i) % keys.length; return { text, truncated: j.candidates?.[0]?.finishReason === 'MAX_TOKENS' }; }
+          last = { code: 'empty_completion', message: 'empty' }; continue;
+        }
+        if (r.status === 400 || r.status === 403) { last = { code: 'bad_key', message: j.error?.message || r.status }; if (/API key/i.test(last.message)) badKeys++; continue; }
+        last = { code: r.status === 429 ? 'rate_limited' : 'upstream_error', message: j.error?.message || String(r.status) }; // 404 model gone, 429 quota, 503 busy
+        if (r.status === 404) break;
       }
-      if (r.status === 400 || r.status === 403) { last = { code: 'bad_key', message: j.error?.message || r.status }; if (/API key/i.test(last.message)) break; continue; }
-      last = { code: r.status === 429 ? 'rate_limited' : 'upstream_error', message: j.error?.message || String(r.status) }; // 404: model gone, 429: this model's quota -> next model
     }
-    throw last;
+    throw badKeys >= Math.min(keys.length, 4) ? { code: 'bad_key', message: 'bad key' } : last;
   }
 
   async function save({ filename, data }) {
@@ -3706,14 +3713,14 @@ async function pool(tasks, n) {
   function keyDialog() {
     if (document.querySelector('.ov.key')) return;
     const kk = (document.documentElement.lang || 'ru') === 'kk';
-    const t = kk ? { h: 'Gemini кілті', p: 'Мәтінді Google Gemini жазады. Тегін кілт алыңыз: aistudio.google.com → Get API key → Create API key, көшіріп, осында қойыңыз. Кілт тек осы телефонда сақталады.', s: 'Сақтау', c: 'Жабу', d: 'Кілтті өшіру' }
-      : { h: 'Ключ Gemini', p: 'Текст пишет Google Gemini. Возьмите бесплатный ключ: aistudio.google.com → Get API key → Create API key, скопируйте и вставьте сюда. Ключ хранится только в этом телефоне.', s: 'Сохранить', c: 'Закрыть', d: 'Удалить ключ' };
+    const t = kk ? { h: 'Gemini кілті', p: 'Мәтінді Google Gemini жазады. Тегін кілт алыңыз: aistudio.google.com → Get API key → Create API key, көшіріп, осында қойыңыз. Бірнеше кілт қоюға болады (әрқайсысы жаңа жолдан): олар кезекпен қолданылады. Кілттер тек осы телефонда сақталады.', s: 'Сақтау', c: 'Жабу', d: 'Кілтті өшіру' }
+      : { h: 'Ключ Gemini', p: 'Текст пишет Google Gemini. Возьмите бесплатный ключ: aistudio.google.com → Get API key → Create API key, скопируйте и вставьте сюда. Можно вставить несколько ключей, каждый с новой строки: они используются по очереди. Ключи хранятся только в этом телефоне.', s: 'Сохранить', c: 'Закрыть', d: 'Удалить ключ' };
     const ov = document.createElement('div'); ov.className = 'ov key';
-    ov.innerHTML = `<div class="box"><h3>${t.h}</h3><div class="sub">${t.p}</div><input class="in" id="gk" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…" value="${get(KEY).replace(/"/g, '')}">
+    ov.innerHTML = `<div class="box"><h3>${t.h}</h3><div class="sub">${t.p}</div><textarea class="in" id="gk" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…">${get(KEY).replace(/[<&]/g, '')}</textarea>
       <div class="row2"><button class="btn ghost" id="gk-c">${t.c}</button><button class="btn dark" id="gk-s">${t.s}</button></div>${get(KEY) ? `<button class="btn ghost" id="gk-d" style="margin-top:10px;width:100%">${t.d}</button>` : ''}</div>`;
     document.body.append(ov);
     ov.querySelector('#gk-c').onclick = () => ov.remove();
-    ov.querySelector('#gk-s').onclick = () => { put(KEY, ov.querySelector('#gk').value.trim()); ov.remove(); };
+    ov.querySelector('#gk-s').onclick = () => { put(KEY, ov.querySelector('#gk').value.split(/[\s,;]+/).filter(Boolean).join('\n')); ov.remove(); };
     const d = ov.querySelector('#gk-d'); if (d) d.onclick = () => { put(KEY, ''); ov.remove(); };
   }
   window.AEP_KEY_DIALOG = keyDialog;
