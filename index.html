@@ -2120,6 +2120,19 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .keycount{font-weight:700;margin:2px 0 10px}
 .keyres{min-height:20px;font-weight:600;margin:6px 0 10px;color:var(--ok)}
 
+.hello{display:flex;flex-direction:column;gap:2px;margin:4px 0 6px}
+.hello span{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.hello small{color:var(--soft);font-size:14px}
+.hello .nm{border:0;background:none;padding:0;font:inherit;color:var(--ac);border-bottom:2px dashed color-mix(in srgb,var(--ac) 45%,transparent);cursor:pointer}
+.acard.pro{cursor:pointer}
+.acard.pro .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 4px 0}
+.acard.pro .mini .sbox{border-radius:6px}
+.acard.pro .chips2{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 10px}
+.acard.pro .chips2 span{background:var(--chipbg);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600}
+.acard.pro .palbar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin-bottom:12px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.acard.pro .palbar i{flex:1}
+.acard.pro .use{width:100%;padding:12px;font-size:14px}
+
 </style>
 <header class="top">
   <span class="brand"><span class="logo">AE</span><span>Презентация</span></span>
@@ -3085,7 +3098,7 @@ window.GROUPS = [
   { ru: 'Тёмные', kk: 'Қараңғы', ids: ['terminal', 'scene', 'cinema', 'neon', 'graphite', 'luxury'] }
 ];
 
-Object.entries({"ru": {"heroPhone": "Выберите стиль, напишите тему — и получите презентацию с фактами, таблицами и графиками на русском или қазақша. Работает прямо в телефоне, без ноутбука.", "hintPhone": "Текст пишет Google Gemini по вашему бесплатному ключу (🔑), фото подбираются из Wikimedia Commons. 10 слайдов ≈ 1–2 мин.", "noClaude": "Создание презентаций работает в приложении Claude или на claude.ai, когда вы вошли в аккаунт.", "errGrant": "Разрешите этой странице пользоваться Claude (окно с запросом) и попробуйте снова.", "errRate": "Лимит Claude на сейчас исчерпан. Попробуйте немного позже.", "errSession": "Войдите в аккаунт Claude заново.", "errAI": "Claude не ответил.", "addPhoto": "Фото", "photoErr": "Не получилось добавить фото.", "noDownload": "Скачивание недоступно в этом окне. Откройте ссылку в приложении Claude или на claude.ai.", "libCloud": "Презентации хранятся в вашем аккаунте Claude: открываются с любого телефона или компьютера.", "libLocal": "Презентации хранятся в этом браузере.", "pickPhoto": "Выберите фото", "errNoKey": "Вставьте ключ Gemini (кнопка 🔑 вверху).", "errBadKey": "Ключ Gemini не подходит. Проверьте его (кнопка 🔑 вверху)."}, "kk": {"heroPhone": "Стильді таңдап, тақырыпты жазыңыз — деректері, кестелері мен диаграммалары бар қазақша немесе орысша презентация аласыз. Ноутбуксыз, тікелей телефонда жұмыс істейді.", "hintPhone": "Мәтінді сіздің аккаунтыңыздағы Claude жазады. Фотоны редактордағы «Фото» батырмасымен телефоннан қосасыз. 10 слайд ≈ 1–2 мин.", "noClaude": "Презентация жасау Claude қосымшасында немесе claude.ai сайтында аккаунтқа кірген кезде жұмыс істейді.", "errGrant": "Бұл бетке Claude-ты пайдалануға рұқсат беріңіз (сұрау терезесі) және қайталап көріңіз.", "errRate": "Claude лимиті әзірге таусылды. Сәл кейінірек қайталап көріңіз.", "errSession": "Claude аккаунтына қайта кіріңіз.", "errAI": "Claude жауап бермеді.", "addPhoto": "Фото", "photoErr": "Фото қосылмады.", "noDownload": "Бұл терезеде жүктеп алу мүмкін емес. Сілтемені Claude қосымшасында немесе claude.ai сайтында ашыңыз.", "libCloud": "Презентациялар Claude аккаунтыңызда сақталады: кез келген телефоннан не компьютерден ашылады.", "libLocal": "Презентациялар осы браузерде сақталады.", "pickPhoto": "Фотоны таңдаңыз", "errNoKey": "Gemini кілтін қойыңыз (жоғарғы 🔑 батырмасы).", "errBadKey": "Gemini кілті жарамсыз. Тексеріңіз (жоғарғы 🔑 батырмасы)."}}).forEach(([k, v]) => Object.assign(I18N[k], v));
+Object.entries({"ru": {"heroPhone": "Выберите стиль, напишите тему — и получите презентацию с фактами, таблицами и графиками на русском или қазақша. Работает прямо в телефоне, без ноутбука.", "hintPhone": "Текст пишет Google Gemini по вашему бесплатному ключу (🔑), фото подбираются из Wikimedia Commons. 10 слайдов ≈ 1–2 мин.", "noClaude": "Создание презентаций работает в приложении Claude или на claude.ai, когда вы вошли в аккаунт.", "errGrant": "Разрешите этой странице пользоваться Claude (окно с запросом) и попробуйте снова.", "errRate": "Лимит Claude на сейчас исчерпан. Попробуйте немного позже.", "errSession": "Войдите в аккаунт Claude заново.", "errAI": "Claude не ответил.", "addPhoto": "Фото", "photoErr": "Не получилось добавить фото.", "noDownload": "Скачивание недоступно в этом окне. Откройте ссылку в приложении Claude или на claude.ai.", "libCloud": "Презентации хранятся в вашем аккаунте Claude: открываются с любого телефона или компьютера.", "libLocal": "Презентации хранятся в этом браузере.", "pickPhoto": "Выберите фото", "hello": "Привет", "helloSub": "Что создадим сегодня?", "yourName": "Как вас зовут?", "useStyle": "Выбрать этот стиль", "errNoKey": "Вставьте ключ Gemini (кнопка 🔑 вверху).", "errBadKey": "Ключ Gemini не подходит. Проверьте его (кнопка 🔑 вверху)."}, "kk": {"heroPhone": "Стильді таңдап, тақырыпты жазыңыз — деректері, кестелері мен диаграммалары бар қазақша немесе орысша презентация аласыз. Ноутбуксыз, тікелей телефонда жұмыс істейді.", "hintPhone": "Мәтінді сіздің аккаунтыңыздағы Claude жазады. Фотоны редактордағы «Фото» батырмасымен телефоннан қосасыз. 10 слайд ≈ 1–2 мин.", "noClaude": "Презентация жасау Claude қосымшасында немесе claude.ai сайтында аккаунтқа кірген кезде жұмыс істейді.", "errGrant": "Бұл бетке Claude-ты пайдалануға рұқсат беріңіз (сұрау терезесі) және қайталап көріңіз.", "errRate": "Claude лимиті әзірге таусылды. Сәл кейінірек қайталап көріңіз.", "errSession": "Claude аккаунтына қайта кіріңіз.", "errAI": "Claude жауап бермеді.", "addPhoto": "Фото", "photoErr": "Фото қосылмады.", "noDownload": "Бұл терезеде жүктеп алу мүмкін емес. Сілтемені Claude қосымшасында немесе claude.ai сайтында ашыңыз.", "libCloud": "Презентациялар Claude аккаунтыңызда сақталады: кез келген телефоннан не компьютерден ашылады.", "libLocal": "Презентациялар осы браузерде сақталады.", "pickPhoto": "Фотоны таңдаңыз", "hello": "Сәлем", "helloSub": "Бүгін не жасаймыз?", "yourName": "Атыңыз кім?", "useStyle": "Осы стильді таңдау", "errNoKey": "Gemini кілтін қойыңыз (жоғарғы 🔑 батырмасы).", "errBadKey": "Gemini кілті жарамсыз. Тексеріңіз (жоғарғы 🔑 батырмасы)."}}).forEach(([k, v]) => Object.assign(I18N[k], v));
 // Theme builder: palettes, font pairs and background pictures drawn anew for every presentation (seeded),
 // so the same style never gives two identical decks. Used by the app, the print page and the PPTX extractor.
 (function () {
@@ -3224,11 +3237,45 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
     },
     grain: (r, p) => `<filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="${r() * 99 | 0}"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 ${p.dark ? .10 : .09} 0"/></filter><rect width="${W}" height="${H}" filter="url(#n)"/>` +
       `<radialGradient id="v"><stop offset=".55" stop-color="${p.text}" stop-opacity="0"/><stop offset="1" stop-color="${p.text}" stop-opacity=".09"/></radialGradient><rect width="${W}" height="${H}" fill="url(#v)"/>` + corners(r, [p.accent3, p.accent2], .08),
+    blobs: (r, p) => { // soft organic shapes
+      const cols = [p.accent3, p.accent2, p.accent]; let g = '';
+      for (let n = 0; n < 5; n++) { const cx = r() * W, cy = r() * H, k = [2 + (r() * 2 | 0), r() * 6, 3, r() * 6, r() * 6]; g += `<path d="${loop(cx, cy, 160 + r() * 200, 1.1, k)}" fill="${cols[n % 3]}" fill-opacity="${(p.dark ? .12 : .13).toFixed(2)}"/>`; }
+      return g;
+    },
+    circuit: (r, p) => { // right-angle traces with nodes
+      let g = '';
+      for (let n = 0; n < 26; n++) { let x = (r() * 40 | 0) * 48, y = (r() * 22 | 0) * 48, d = `M${x} ${y}`;
+        for (let k = 0; k < 4; k++) { if (r() > .5) x += ((r() * 6 | 0) - 3) * 48; else y += ((r() * 5 | 0) - 2) * 48; d += `L${x} ${y}`; }
+        g += `<path d="${d}"/><circle cx="${x}" cy="${y}" r="7" fill="${p.accent}" fill-opacity=".25"/>`; }
+      return `<g fill="none" stroke="${p.accent}" stroke-opacity="${p.dark ? .2 : .14}" stroke-width="2">${g}</g>`;
+    },
+    bokeh: (r, p) => { let g = ''; const cols = [p.accent, p.accent2, p.accent3];
+      for (let n = 0; n < 34; n++) g += `<circle cx="${(r() * W).toFixed(0)}" cy="${(r() * H).toFixed(0)}" r="${(20 + r() * 90).toFixed(0)}" fill="${cols[n % 3]}" fill-opacity="${(.04 + r() * .1).toFixed(2)}"/>`;
+      return g; },
+    memphis: (r, p) => { let g = ''; const cols = [p.accent, p.accent2, p.accent3];
+      for (let n = 0; n < 22; n++) { const x = r() * W, y = r() * H, c = cols[n % 3], t = n % 4, sz = 18 + r() * 26, rot = (r() * 360).toFixed(0);
+        g += `<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) rotate(${rot})" fill="none" stroke="${c}" stroke-opacity=".28" stroke-width="5" stroke-linecap="round">` +
+          (t === 0 ? `<path d="M${-sz} 0 q${sz / 2} ${-sz} ${sz} 0 t${sz} 0"/>` : t === 1 ? `<circle r="${sz / 2}"/>` : t === 2 ? `<path d="M0 ${-sz} L${sz} ${sz} L${-sz} ${sz}Z"/>` : `<path d="M${-sz} 0 H${sz} M0 ${-sz} V${sz}"/>`) + '</g>'; }
+      return g; },
+    scales: (r, p) => { let g = ''; const s = 70;
+      for (let y = -s; y < H + s; y += s * .5) for (let x = -s; x < W + s; x += s) { const ox = (Math.round(y / (s * .5)) % 2) * s / 2; g += `<path d="M${x + ox - s / 2} ${y} a${s / 2} ${s / 2} 0 0 0 ${s} 0"/>`; }
+      return `<g fill="none" stroke="${p.accent}" stroke-opacity="${p.dark ? .15 : .12}" stroke-width="1.6">${g}</g>` + corners(r, [p.accent3, p.accent2], .09); },
+    stars: (r, p) => { let g = '';
+      for (let n = 0; n < 70; n++) { const x = r() * W, y = r() * H, sz = 3 + r() * (n % 9 ? 6 : 16), c = n % 3 ? p.accent : p.accent2;
+        g += `<path d="M${x.toFixed(0)} ${(y - sz).toFixed(0)} L${(x + sz * .3).toFixed(0)} ${(y - sz * .3).toFixed(0)} L${(x + sz).toFixed(0)} ${y.toFixed(0)} L${(x + sz * .3).toFixed(0)} ${(y + sz * .3).toFixed(0)} L${x.toFixed(0)} ${(y + sz).toFixed(0)} L${(x - sz * .3).toFixed(0)} ${(y + sz * .3).toFixed(0)} L${(x - sz).toFixed(0)} ${y.toFixed(0)} L${(x - sz * .3).toFixed(0)} ${(y - sz * .3).toFixed(0)}Z" fill="${c}" fill-opacity="${(.12 + r() * .25).toFixed(2)}"/>`; }
+      return g; },
+    chevrons: (r, p) => { let g = ''; const cols = [p.accent, p.accent3, p.accent2];
+      for (let i = 0; i < 9; i++) { const x = W - 60 - i * 70; g += `<path d="M${x} 0 L${x + 110} ${H / 2} L${x} ${H} L${x - 40} ${H} L${x + 70} ${H / 2} L${x - 40} 0Z" fill="${cols[i % 3]}" fill-opacity="${(.03 + (9 - i) * .012).toFixed(3)}"/>`; }
+      return g; },
+    sunburst: (r, p) => { let g = ''; const cx = W * (.6 + r() * .35), cy = H * (-.1 + r() * .3), n = 36;
+      for (let i = 0; i < n; i += 2) { const a0 = i / n * Math.PI * 2, a1 = (i + 1) / n * Math.PI * 2, R = 2400;
+        g += `<path d="M${cx} ${cy} L${(cx + R * Math.cos(a0)).toFixed(0)} ${(cy + R * Math.sin(a0)).toFixed(0)} L${(cx + R * Math.cos(a1)).toFixed(0)} ${(cy + R * Math.sin(a1)).toFixed(0)}Z"/>`; }
+      return `<g fill="${p.accent}" fill-opacity="${p.dark ? .08 : .06}">${g}</g>`; },
     mesh: (r, p) => [p.accent3, p.accent2, p.accent].map((c, i) => `<radialGradient id="m${i}"><stop offset="0" stop-color="${c}" stop-opacity="${p.dark ? .32 : .26}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient><circle cx="${(r() * W).toFixed(0)}" cy="${(r() * H).toFixed(0)}" r="${(500 + r() * 400).toFixed(0)}" fill="url(#m${i})"/>`).join('')
   };
   const BGS = Object.keys(BG);
   const BG_NAMES = { topo: ['Рельеф', 'Бедер'], contour: ['Горизонтали', 'Изосызықтар'], waves: ['Волны', 'Толқындар'], dots: ['Точки', 'Нүктелер'], paper: ['Клетка', 'Тор'], diagonal: ['Штрих', 'Штрих'],
-    hex: ['Соты', 'Ұялар'], ornament: ['Орнамент', 'Ою-өрнек'], leaves: ['Листья', 'Жапырақтар'], triangles: ['Треугольники', 'Үшбұрыштар'], rings: ['Круги', 'Шеңберлер'], grain: ['Бумага', 'Қағаз'], mesh: ['Свечение', 'Жарқыл'] };
+    hex: ['Соты', 'Ұялар'], ornament: ['Орнамент', 'Ою-өрнек'], leaves: ['Листья', 'Жапырақтар'], triangles: ['Треугольники', 'Үшбұрыштар'], rings: ['Круги', 'Шеңберлер'], grain: ['Бумага', 'Қағаз'], mesh: ['Свечение', 'Жарқыл'], blobs: ['Пятна', 'Дақтар'], circuit: ['Схема', 'Сызба'], bokeh: ['Боке', 'Боке'], memphis: ['Мемфис', 'Мемфис'], scales: ['Чешуя', 'Қабыршақ'], stars: ['Звёзды', 'Жұлдыздар'], chevrons: ['Стрелки', 'Көрсеткілер'], sunburst: ['Лучи', 'Сәулелер'] };
 
   function bgImage(name, palette, seed) {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice">${(BG[name] || BG.topo)(rnd(seed), palette)}</svg>`;
@@ -3825,15 +3872,48 @@ async function pool(tasks, n) {
     if (/^\p{Lu}/u.test(m)) return wikiLead(m, used);
     return null;
   }
+  // Photos: candidates for every slide, then ONE text call where the AI "inspector" reads each candidate's file name and
+  // description against the slide and picks the one that really shows the subject, or rejects them all (no photo beats a wrong one).
   window.AEP_PHOTOS = async (deck, job) => {
     const used = new Set(), tasks = [];
-    deck.slides.forEach(s => {
-      if (s.imageQuery) tasks.push({ q: s.imageQuery, must: s.imageMust || deck.imageMust, set: v => s.image = v });
-      (s.images || []).forEach(im => tasks.push({ q: im.query, must: im.must || deck.imageMust, set: v => Object.assign(im, v) }));
+    deck.slides.forEach((s, i) => {
+      if (s.imageQuery) tasks.push({ id: tasks.length, slide: s.title || deck.title, q: s.imageQuery, must: s.imageMust || deck.imageMust, set: v => s.image = v });
+      (s.images || []).forEach(im => tasks.push({ id: tasks.length, slide: im.caption || s.title || deck.title, q: im.query, must: im.must || deck.imageMust, set: v => Object.assign(im, v) }));
     });
     job.total = tasks.length; job.n = 0;
-    const worker = async () => { for (let t; !job.cancelled && (t = tasks.shift());) { try { const f = await findPhoto(t.q, t.must, used); if (f) t.set(f); } catch { } job.n++; } };
+    const queue = [...tasks];
+    const worker = async () => {
+      for (let t; !job.cancelled && (t = queue.shift());) {
+        t.cands = [];
+        try {
+          const seen = new Set();
+          for (const q of [t.q, t.must].filter(Boolean)) {
+            for (const p of await commonsAll(q, seen, t.must)) if (t.cands.length < 5) { t.cands.push(p); seen.add(p.title); }
+            if (t.cands.length >= 3) break;
+          }
+          if (!t.cands.length && /^\p{Lu}/u.test(t.must || '')) { const f = await wikiLead(t.must, new Set()); if (f) t.lead = f; }
+        } catch { }
+        job.n++;
+      }
+    };
     await Promise.all([worker(), worker()]);
+    if (job.cancelled) return;
+    // the inspector (one call for the whole deck)
+    const withC = tasks.filter(t => t.cands.length > 1);
+    let verdict = {};
+    if (withC.length) {
+      try {
+        const payload = withC.map(t => ({ id: t.id, slide: t.slide, topic: deck.topic, want: t.q, candidates: t.cands.map((p, i) => ({ i, file: p.title.replace(/^File:/, '').slice(0, 90), about: strip(p.imageinfo[0].extmetadata?.ImageDescription?.value).slice(0, 140) })) }));
+        const r = await gemini('You are a strict photo editor of a presentation. For every item choose the ONE candidate photo that really shows what the slide is about (judge by file name and description). If none clearly fits, answer -1: a missing photo is better than a wrong one. Never choose maps, logos, diagrams or unrelated subjects. Reply only JSON: [{"id":number,"pick":number}].\n\n' + JSON.stringify(payload));
+        const arr = JSON.parse(r.text.slice(r.text.indexOf('['), r.text.lastIndexOf(']') + 1));
+        for (const x of arr) verdict[x.id] = x.pick;
+      } catch { /* no verdict: the strict ranking below decides */ }
+    }
+    for (const t of tasks) {
+      let p = null;
+      if (t.cands.length) { const k = t.id in verdict ? verdict[t.id] : 0; p = k >= 0 && t.cands[k] ? t.cands[k] : null; if (p && used.has(p.title)) p = t.cands.find(c => !used.has(c.title) && verdict[t.id] === undefined) || null; }
+      if (p) { used.add(p.title); t.set(pick(p, new Set())); } else if (t.lead) t.set(t.lead);
+    }
   };
   window.AEP_FIND_PHOTO = findPhoto;
 })();
@@ -3965,16 +4045,25 @@ function chrome() {
 function home() {
   setTab('styles');
   const L = T(), smp = SAMPLE();
-  view.innerHTML = `<section class="page"><div class="hero"><h1>${L.heroH}</h1><p>${esc(L.heroPhone)}</p></div>
+  const name = ls.get('aep_name') || 'Сергей';
+  view.innerHTML = `<section class="page"><div class="hello"><span>${esc(L.hello)}, <button class="nm" id="nm" aria-label="name">${esc(name)}</button> 👋</span><small>${esc(L.helloSub)}</small></div>
+    <div class="hero"><h1>${L.heroH}</h1><p>${esc(L.heroPhone)}</p></div>
     <div class="filters">${[L.all, ...GROUPS.map(g => g[UI])].map((t, i) => `<button class="chip ${i ? '' : 'on'}" data-i="${i}">${esc(t)}</button>`).join('')}</div>
     <div class="agrid" id="cards"></div></section>`;
+  $('#nm').onclick = async () => { const v = await ask(L.yourName, '', name); if (v && v.trim()) { ls.set('aep_name', v.trim().slice(0, 30)); home(); } };
   const grid = $('#cards');
   STYLES.forEach((st, i) => {
-    const c = document.createElement('button');
-    c.className = 'acard'; c.dataset.id = st.id; c.style.animationDelay = Math.min(i, 12) * 30 + 'ms';
-    c.append(slideBox(smp, 1, st));
+    const c = document.createElement('article');
+    c.className = 'acard pro'; c.dataset.id = st.id; c.style.animationDelay = Math.min(i, 12) * 30 + 'ms';
+    c.append(slideBox(smp, 1, st, 'main'));
+    const mini = document.createElement('div'); mini.className = 'mini';
+    [0, 2, 3].forEach(k => mini.append(slideBox(smp, k, st)));
+    c.append(mini);
+    const fam = { academic: L.fams.academic, bold: L.fams.bold, soft: L.fams.soft, editorial: L.fams.editorial }[st.fam] || '';
     c.insertAdjacentHTML('beforeend', `<div class="ameta"><div class="row"><h3>${esc(sName(st))}</h3><span class="atag">${esc(sTag(st))}</span></div><p>${esc(sDesc(st))}</p>
-      <div class="pal">${[st.bg, st.text, st.accent, st.accent2].map(c => `<i style="background:${c}"></i>`).join('')}<span>${esc(st.fonts.h)}</span></div></div>`);
+      <div class="chips2"><span>${esc(fam)}</span><span style="font-family:'${st.fonts.h}',serif">${esc(st.fonts.h)}</span></div>
+      <div class="palbar">${[st.bg, st.text, st.accent, st.accent2, st.accent3 || st.accent].map(c => `<i style="background:${c}"></i>`).join('')}</div>
+      <button class="btn dark use">${L.useStyle}</button></div>`);
     c.onclick = () => go('create', st.id);
     grid.append(c);
   });
