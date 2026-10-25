@@ -2117,6 +2117,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .installbar button{border:0;border-radius:10px;padding:9px 14px;font-weight:700;background:var(--ac);color:#fff}
 .installbar #inst-n{background:none;color:inherit;padding:6px}
 
+.keycount{font-weight:700;margin:2px 0 10px}
+.keyres{min-height:20px;font-weight:600;margin:6px 0 10px;color:var(--ok)}
+
 </style>
 <header class="top">
   <span class="brand"><span class="logo">AE</span><span>Презентация</span></span>
@@ -3713,16 +3716,35 @@ async function pool(tasks, n) {
   function keyDialog() {
     if (document.querySelector('.ov.key')) return;
     const kk = (document.documentElement.lang || 'ru') === 'kk';
-    const t = kk ? { h: 'Gemini кілті', p: 'Мәтінді Google Gemini жазады. Тегін кілт алыңыз: aistudio.google.com → Get API key → Create API key, көшіріп, осында қойыңыз. Бірнеше кілт қоюға болады (әрқайсысы жаңа жолдан): олар кезекпен қолданылады. Кілттер тек осы телефонда сақталады.', s: 'Сақтау', c: 'Жабу', d: 'Кілтті өшіру' }
-      : { h: 'Ключ Gemini', p: 'Текст пишет Google Gemini. Возьмите бесплатный ключ: aistudio.google.com → Get API key → Create API key, скопируйте и вставьте сюда. Можно вставить несколько ключей, каждый с новой строки: они используются по очереди. Ключи хранятся только в этом телефоне.', s: 'Сохранить', c: 'Закрыть', d: 'Удалить ключ' };
+    const t = kk ? { h: 'Gemini кілттері', p: 'Мәтінді Google Gemini жазады. Кілттерді бірден бәрін қойыңыз (әрқайсысы жаңа жолдан немесе бос орынмен бөлініп) — олар сақталады және кезекпен қолданылады.', s: 'Сақтау және тексеру', c: 'Жабу', d: 'Барлығын өшіру', n: n => `Сақталған кілттер: ${n}`, ok: (g, n) => `Жарамды: ${g} / ${n}`, chk: 'Тексерілуде…', help: 'Тегін кілт: aistudio.google.com → Get API key' }
+      : { h: 'Ключи Gemini', p: 'Текст пишет Google Gemini. Вставьте сразу все ключи (каждый с новой строки или через пробел): они сохранятся и будут использоваться по очереди.', s: 'Сохранить и проверить', c: 'Закрыть', d: 'Удалить все', n: n => `Сохранено ключей: ${n}`, ok: (g, n) => `Рабочих: ${g} из ${n}`, chk: 'Проверяю…', help: 'Бесплатный ключ: aistudio.google.com → Get API key' };
+    const norm = txt => [...new Set(String(txt).split(/[\s,;]+/).map(x => x.replace(/^["'`]|["'`]$/g, '')).filter(x => x.length > 20))];
     const ov = document.createElement('div'); ov.className = 'ov key';
-    ov.innerHTML = `<div class="box"><h3>${t.h}</h3><div class="sub">${t.p}</div><textarea class="in" id="gk" rows="4" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…">${get(KEY).replace(/[<&]/g, '')}</textarea>
-      <div class="row2"><button class="btn ghost" id="gk-c">${t.c}</button><button class="btn dark" id="gk-s">${t.s}</button></div>${get(KEY) ? `<button class="btn ghost" id="gk-d" style="margin-top:10px;width:100%">${t.d}</button>` : ''}</div>`;
+    const have = norm(get(KEY));
+    ov.innerHTML = `<div class="box wide"><h3>${t.h}</h3><div class="sub">${t.p}</div><div class="keycount" id="gk-n">${t.n(have.length)}</div>
+      <textarea class="in" id="gk" rows="6" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="AIza…&#10;AIza…&#10;AQ.Ab8…"></textarea>
+      <div class="hint" style="text-align:left">${t.help}</div><div id="gk-r" class="keyres"></div>
+      <div class="row2"><button class="btn ghost" id="gk-c">${t.c}</button><button class="btn dark" id="gk-s">${t.s}</button></div>${have.length ? `<button class="btn ghost" id="gk-d" style="margin-top:10px;width:100%">${t.d}</button>` : ''}</div>`;
     document.body.append(ov);
+    const ta = ov.querySelector('#gk'), res = ov.querySelector('#gk-r');
     ov.querySelector('#gk-c').onclick = () => ov.remove();
-    ov.querySelector('#gk-s').onclick = () => { put(KEY, ov.querySelector('#gk').value.split(/[\s,;]+/).filter(Boolean).join('\n')); ov.remove(); };
+    // saved keys are added to what is pasted (nothing is lost), duplicates dropped, dead keys removed after the check
+    ov.querySelector('#gk-s').onclick = async () => {
+      const all = norm(get(KEY) + '\n' + ta.value);
+      if (!all.length) return;
+      put(KEY, all.join('\n'));
+      res.textContent = t.chk;
+      const verdict = await Promise.all(all.map(k => fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=1', { headers: { 'x-goog-api-key': k } }).then(r => r.ok ? 'ok' : (r.status === 400 || r.status === 403) ? 'bad' : 'ok', () => 'ok')));
+      const good = all.filter((_, i) => verdict[i] === 'ok');
+      if (good.length) put(KEY, good.join('\n'));
+      res.textContent = t.ok(good.length, all.length);
+      ov.querySelector('#gk-n').textContent = t.n(good.length); ta.value = '';
+      if (good.length) setTimeout(() => ov.remove(), 1400);
+    };
     const d = ov.querySelector('#gk-d'); if (d) d.onclick = () => { put(KEY, ''); ov.remove(); };
   }
+  // first start: ask for the keys at once, not on the first failed generation
+  window.addEventListener('load', () => setTimeout(() => { if (!get(KEY)) keyDialog(); }, 900));
   window.AEP_KEY_DIALOG = keyDialog;
 
   // Android (Samsung Internet / Chrome): offer "install as an app" once the browser says it can
