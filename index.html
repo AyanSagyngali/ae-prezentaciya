@@ -2496,6 +2496,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .show .rise{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 @media (prefers-reduced-motion:reduce){.show .sbox,.show .rise{animation:none!important}}
 
+.chlog{max-height:38vh;overflow:auto;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.chmsg{padding:10px 12px;border-radius:12px;font-size:15px;line-height:1.4;max-width:88%;white-space:pre-wrap}
+.chmsg.me{align-self:flex-end;background:#1b1b1f;color:#fff}
+.chmsg.ai{align-self:flex-start;background:#f0f0f3;color:#1b1b1f}
 </style>
 <header class="top">
   <span class="brand"><span class="logo">AE</span><span>Презентация</span></span>
@@ -2508,6 +2512,73 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <script>
 window.AEI={"landmark": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 18v-7\" /> <path d=\"M11.119 2.205a2 2 0 0 1 1.762 0l7.84 3.846A.5.5 0 0 1 20.5 7h-17a.5.5 0 0 1-.22-.949z\" /> <path d=\"M14 18v-7\" /> <path d=\"M18 18v-7\" /> <path d=\"M3 22h18\" /> <path d=\"M6 18v-7\" /> </svg>", "scale": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 3v18\" /> <path d=\"m19 8 3 8a5 5 0 0 1-6 0zV7\" /> <path d=\"M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1\" /> <path d=\"m5 8 3 8a5 5 0 0 1-6 0zV7\" /> <path d=\"M7 21h10\" /> </svg>", "gavel": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m14 13-8.381 8.38a1 1 0 0 1-3.001-3l8.384-8.381\" /> <path d=\"m16 16 6-6\" /> <path d=\"m21.5 10.5-8-8\" /> <path d=\"m8 8 6-6\" /> <path d=\"m8.5 7.5 8 8\" /> </svg>", "map": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z\" /> <path d=\"M15 5.764v15\" /> <path d=\"M9 3.236v15\" /> </svg>", "map-pin": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0\" /> <circle cx=\"12\" cy=\"10\" r=\"3\" /> </svg>", "mountain": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m8 3 4 8 5-5 5 15H2L8 3z\" /> </svg>", "trees": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z\" /> <path d=\"M7 16v6\" /> <path d=\"M13 19v3\" /> <path d=\"M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5\" /> </svg>", "droplets": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z\" /> <path d=\"M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97\" /> </svg>", "sun": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"4\" /> <path d=\"M12 2v2\" /> <path d=\"M12 20v2\" /> <path d=\"m4.93 4.93 1.41 1.41\" /> <path d=\"m17.66 17.66 1.41 1.41\" /> <path d=\"M2 12h2\" /> <path d=\"M20 12h2\" /> <path d=\"m6.34 17.66-1.41 1.41\" /> <path d=\"m19.07 4.93-1.41 1.41\" /> </svg>", "wind": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12.8 19.6A2 2 0 1 0 14 16H2\" /> <path d=\"M17.5 8a2.5 2.5 0 1 1 2 4H2\" /> <path d=\"M9.8 4.4A2 2 0 1 1 11 8H2\" /> </svg>", "snowflake": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m10 20-1.25-2.5L6 18\" /> <path d=\"M10 4 8.75 6.5 6 6\" /> <path d=\"m14 20 1.25-2.5L18 18\" /> <path d=\"m14 4 1.25 2.5L18 6\" /> <path d=\"m17 21-3-6h-4\" /> <path d=\"m17 3-3 6 1.5 3\" /> <path d=\"M2 12h6.5L10 9\" /> <path d=\"m20 10-1.5 2 1.5 2\" /> <path d=\"M22 12h-6.5L14 15\" /> <path d=\"m4 10 1.5 2L4 14\" /> <path d=\"m7 21 3-6-1.5-3\" /> <path d=\"m7 3 3 6h4\" /> </svg>", "cloud-rain": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242\" /> <path d=\"M16 14v6\" /> <path d=\"M8 14v6\" /> <path d=\"M12 16v6\" /> </svg>", "flame": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4\" /> </svg>", "factory": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 16h.01\" /> <path d=\"M16 16h.01\" /> <path d=\"M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z\" /> <path d=\"M8 16h.01\" /> </svg>", "tractor": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m10 11 11 .9a1 1 0 0 1 .8 1.1l-.665 4.158a1 1 0 0 1-.988.842H20\" /> <path d=\"M16 18h-5\" /> <path d=\"M18 5a1 1 0 0 0-1 1v5.573\" /> <path d=\"M3 4h8.129a1 1 0 0 1 .99.863L13 11.246\" /> <path d=\"M4 11V4\" /> <path d=\"M7 15h.01\" /> <path d=\"M8 10.1V4\" /> <circle cx=\"18\" cy=\"18\" r=\"2\" /> <circle cx=\"7\" cy=\"15\" r=\"5\" /> </svg>", "wheat": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2 22 16 8\" /> <path d=\"M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z\" /> <path d=\"M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z\" /> <path d=\"M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" /> <path d=\"M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" /> <path d=\"M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z\" /> </svg>", "sprout": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3\" /> <path d=\"M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4\" /> <path d=\"M5 21h14\" /> </svg>", "leaf": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 20a10 10 0 0010-10 25.9 25.9 0 00-1.04-7.281 1 1 0 00-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0011 20\" /> <path d=\"M2 21a5 5 0 012.911-4.544C7.613 15.212 8.351 15.24 11 13\" /> </svg>", "recycle": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5\" /> <path d=\"M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12\" /> <path d=\"m14 16-3 3 3 3\" /> <path d=\"M8.293 13.596 7.196 9.5 3.1 10.598\" /> <path d=\"m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843\" /> <path d=\"m13.378 9.633 4.096 1.098 1.097-4.096\" /> </svg>", "fish": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z\" /> <path d=\"M18 12v.5\" /> <path d=\"M16 17.93a9.77 9.77 0 0 1 0-11.86\" /> <path d=\"M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33\" /> <path d=\"M10.46 7.26C10.2 5.88 9.17 4.24 8 3h5.8a2 2 0 0 1 1.98 1.67l.23 1.4\" /> <path d=\"m16.01 17.93-.23 1.4A2 2 0 0 1 13.8 21H9.5a5.96 5.96 0 0 0 1.49-3.98\" /> </svg>", "users": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <path d=\"M16 3.128a4 4 0 0 1 0 7.744\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> </svg>", "user": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2\" /> <circle cx=\"12\" cy=\"7\" r=\"4\" /> </svg>", "baby": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5\" /> <path d=\"M15 12h.01\" /> <path d=\"M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1\" /> <path d=\"M9 12h.01\" /> </svg>", "graduation-cap": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z\" /> <path d=\"M22 10v6\" /> <path d=\"M6 12.5V16a6 3 0 0 0 12 0v-3.5\" /> </svg>", "school": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14 21v-3a2 2 0 0 0-4 0v3\" /> <path d=\"M18 4.933V21\" /> <path d=\"m4 6 7.106-3.79a2 2 0 0 1 1.788 0L20 6\" /> <path d=\"m6 11-3.52 2.147a1 1 0 0 0-.48.854V19a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a1 1 0 0 0-.48-.853L18 11\" /> <path d=\"M6 4.933V21\" /> <circle cx=\"12\" cy=\"9\" r=\"2\" /> </svg>", "book-open": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 5v16\" /> <path d=\"M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z\" /> </svg>", "lightbulb": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\" /> <path d=\"M9 18h6\" /> <path d=\"M10 22h4\" /> </svg>", "brain": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 18V5\" /> <path d=\"M15 13a4.17 4.17 0 01-3-4 4.17 4.17 0 01-3 4\" /> <path d=\"M17.707 6.294A3 3 0 1012 5a3 3 0 10-5.707 1.294\" /> <path d=\"M17.996 5.125a4 4 0 012.526 5.77\" /> <path d=\"M18 18a4 4 0 002-7.465\" /> <path d=\"M19.967 17.482a4 4 0 11-7.967.517 4 4 0 11-7.967-.517\" /> <path d=\"M6 18a4 4 0 01-2-7.465\" /> <path d=\"M6.004 5.125a4 4 0 00-2.526 5.77\" /> </svg>", "target": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <circle cx=\"12\" cy=\"12\" r=\"6\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" /> </svg>", "flag": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528\" /> </svg>", "trophy": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2\" /> <path d=\"M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2\" /> <path d=\"M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3\" /> <path d=\"M4 22h16\" /> <path d=\"M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z\" /> <path d=\"M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3\" /> </svg>", "award": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526\" /> <circle cx=\"12\" cy=\"8\" r=\"6\" /> </svg>", "star": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z\" /> </svg>", "shield": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> </svg>", "shield-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"m9 12 2 2 4-4\" /> </svg>", "triangle-alert": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3\" /> <path d=\"M12 9v4\" /> <path d=\"M12 17h.01\" /> </svg>", "circle-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m16 9-5.5 5.5L8 12\" /> </svg>", "circle-x": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m15 9-6 6\" /> <path d=\"m9 9 6 6\" /> </svg>", "clock": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 6v6l4 2\" /> </svg>", "calendar": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 2v3\" /> <path d=\"M16 2v3\" /> <rect x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M3 9h18\" /> </svg>", "trending-up": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 7h6v6\" /> <path d=\"m22 7-8.5 8.5-5-5L2 17\" /> </svg>", "trending-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 17h6v-6\" /> <path d=\"m22 17-8.5-8.5-5 5L2 7\" /> </svg>", "chart-column": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 3v16a2 2 0 0 0 2 2h16\" /> <path d=\"M18 17V9\" /> <path d=\"M13 17V5\" /> <path d=\"M8 17v-3\" /> </svg>", "chart-pie": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z\" /> <path d=\"M21.21 15.89A10 10 0 1 1 8 2.83\" /> </svg>", "coins": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13.744 17.736a6 6 0 1 1-7.48-7.48\" /> <path d=\"M15 6h1v4\" /> <path d=\"m6.134 14.768.866-.5 2 3.464\" /> <circle cx=\"16\" cy=\"8\" r=\"6\" /> </svg>", "wallet": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1\" /> <path d=\"M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4\" /> </svg>", "banknote": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"2\" y=\"6\" rx=\"2\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" /> <path d=\"M6 12h.01M18 12h.01\" /> </svg>", "briefcase": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\" /> <rect x=\"2\" y=\"6\" rx=\"2\" /> </svg>", "building-2": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 12h4\" /> <path d=\"M10 8h4\" /> <path d=\"M14 21v-3a2 2 0 0 0-4 0v3\" /> <path d=\"M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2\" /> <path d=\"M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16\" /> </svg>", "house": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8\" /> <path d=\"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\" /> </svg>", "hospital": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 7v4\" /> <path d=\"M14 21v-3a2 2 0 0 0-4 0v3\" /> <path d=\"M14 9h-4\" /> <path d=\"M18 11h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h2\" /> <path d=\"M18 21V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16\" /> </svg>", "heart-pulse": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5\" /> <path d=\"M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27\" /> </svg>", "stethoscope": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M11 2v2\" /> <path d=\"M5 2v2\" /> <path d=\"M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1\" /> <path d=\"M8 15a6 6 0 0 0 12 0v-3\" /> <circle cx=\"20\" cy=\"10\" r=\"2\" /> </svg>", "syringe": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m18 2 4 4\" /> <path d=\"m17 7 3-3\" /> <path d=\"M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5\" /> <path d=\"m9 11 4 4\" /> <path d=\"m5 19-3 3\" /> <path d=\"m14 4 6 6\" /> </svg>", "microscope": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 18h8\" /> <path d=\"M3 22h18\" /> <path d=\"M14 22a7 7 0 1 0 0-14h-1\" /> <path d=\"M9 14h2\" /> <path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\" /> <path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\" /> </svg>", "flask-conical": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2\" /> <path d=\"M6.453 15h11.094\" /> <path d=\"M8.5 2h7\" /> </svg>", "atom": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"1\" /> <path d=\"M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z\" /> <path d=\"M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z\" /> </svg>", "dna": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m10 16 1.5 1.5\" /> <path d=\"m14 8-1.5-1.5\" /> <path d=\"M15 2c-1.798 1.998-2.518 3.995-2.807 5.993\" /> <path d=\"m16.5 10.5 1 1\" /> <path d=\"m17 6-2.891-2.891\" /> <path d=\"M2 15c6.667-6 13.333 0 20-6\" /> <path d=\"m20 9 .891.891\" /> <path d=\"M3.109 14.109 4 15\" /> <path d=\"m6.5 12.5 1 1\" /> <path d=\"m7 18 2.891 2.891\" /> <path d=\"M9 22c1.798-1.998 2.518-3.995 2.807-5.993\" /> </svg>", "cpu": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 20v2\" /> <path d=\"M12 2v2\" /> <path d=\"M17 20v2\" /> <path d=\"M17 2v2\" /> <path d=\"M2 12h2\" /> <path d=\"M2 17h2\" /> <path d=\"M2 7h2\" /> <path d=\"M20 12h2\" /> <path d=\"M20 17h2\" /> <path d=\"M20 7h2\" /> <path d=\"M7 20v2\" /> <path d=\"M7 2v2\" /> <rect x=\"4\" y=\"4\" rx=\"2\" /> <rect x=\"8\" y=\"8\" rx=\"1\" /> </svg>", "smartphone": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"5\" y=\"2\" rx=\"2\" ry=\"2\" /> <path d=\"M12 18h.01\" /> </svg>", "globe": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\" /> <path d=\"M2 12h20\" /> </svg>", "plane": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z\" /> </svg>", "train-front": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M8 3.1V7a4 4 0 0 0 8 0V3.1\" /> <path d=\"m9 15-1-1\" /> <path d=\"m15 15 1-1\" /> <path d=\"M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z\" /> <path d=\"m8 19-2 3\" /> <path d=\"m16 19 2 3\" /> </svg>", "car": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2\" /> <circle cx=\"7\" cy=\"17\" r=\"2\" /> <path d=\"M9 17h6\" /> <circle cx=\"17\" cy=\"17\" r=\"2\" /> </svg>", "ship": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 2v2\" /> <path d=\"M12 9.189V13\" /> <path d=\"M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6\" /> <path d=\"M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76\" /> <path d=\"M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1\" /> </svg>", "truck": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\" /> <path d=\"M15 18H9\" /> <path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\" /> <circle cx=\"17\" cy=\"18\" r=\"2\" /> <circle cx=\"7\" cy=\"18\" r=\"2\" /> </svg>", "zap": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z\" /> </svg>", "battery-charging": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m11 7-3 5h4l-3 5\" /> <path d=\"M14.856 6H16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.935\" /> <path d=\"M22 14v-4\" /> <path d=\"M5.14 18H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2.936\" /> </svg>", "palette": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z\" /> <circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\" /> <circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" /> </svg>", "music": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21 16V3a1 1 0 0 0-1.28-.96l-10 2.917a1 1 0 0 0-.72.96V19\" /> <circle cx=\"18\" cy=\"16\" r=\"3\" /> <circle cx=\"6\" cy=\"19\" r=\"3\" /> </svg>", "camera": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z\" /> <circle cx=\"12\" cy=\"13\" r=\"3\" /> </svg>", "film": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"M7 3v18\" /> <path d=\"M3 7.5h4\" /> <path d=\"M3 12h18\" /> <path d=\"M3 16.5h4\" /> <path d=\"M17 3v18\" /> <path d=\"M17 7.5h4\" /> <path d=\"M17 16.5h4\" /> </svg>", "message-circle": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719\" /> </svg>", "search": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m21 21-4.34-4.34\" /> <circle cx=\"11\" cy=\"11\" r=\"8\" /> </svg>", "file-text": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z\" /> <path d=\"M14 2v5a1 1 0 0 0 1 1h5\" /> <path d=\"M10 9H8\" /> <path d=\"M16 13H8\" /> <path d=\"M16 17H8\" /> </svg>", "clipboard-check": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"8\" y=\"2\" rx=\"1\" ry=\"1\" /> <path d=\"M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2\" /> <path d=\"m9 14 2 2 4-4\" /> </svg>", "handshake": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m11 17 2 2a1 1 0 1 0 3-3\" /> <path d=\"m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4\" /> <path d=\"m21 3 1 11h-2\" /> <path d=\"M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3\" /> <path d=\"M3 4h8\" /> </svg>", "rocket": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5\" /> <path d=\"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09\" /> <path d=\"M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z\" /> <path d=\"M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05\" /> </svg>", "layers": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z\" /> <path d=\"M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12\" /> <path d=\"M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17\" /> </svg>", "settings": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "link": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\" /> <path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\" /> </svg>", "lock": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <rect x=\"3\" y=\"11\" rx=\"2\" ry=\"2\" /> <path d=\"M7 11V7a5 5 0 0 1 10 0v4\" /> </svg>", "eye": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" /> </svg>", "compass": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z\" /> </svg>", "route": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <circle cx=\"6\" cy=\"19\" r=\"3\" /> <path d=\"M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15\" /> <circle cx=\"18\" cy=\"5\" r=\"3\" /> </svg>", "mail": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\" /> <rect x=\"2\" y=\"4\" rx=\"2\" /> </svg>", "phone": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\" /> </svg>", "hammer": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9\" /> <path d=\"m18 15 4-4\" /> <path d=\"m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5\" /> </svg>", "ruler": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z\" /> <path d=\"m14.5 12.5 2-2\" /> <path d=\"m11.5 9.5 2-2\" /> <path d=\"m8.5 6.5 2-2\" /> <path d=\"m17.5 15.5 2-2\" /> </svg>", "utensils": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\" /> <path d=\"M7 2v20\" /> <path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7\" /> </svg>", "shopping-cart": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18\" /> <path d=\"M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25\" /> <circle cx=\"18\" cy=\"20\" r=\"2\" /> <circle cx=\"8\" cy=\"20\" r=\"2\" /> </svg>", "thermometer": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z\" /> </svg>", "bug": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" > <path d=\"M12 20v-9\" /> <path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\" /> <path d=\"M14.12 3.88 16 2\" /> <path d=\"M21 21a4 4 0 0 0-3.81-4\" /> <path d=\"M21 5a4 4 0 0 1-3.55 3.97\" /> <path d=\"M22 13h-4\" /> <path d=\"M3 21a4 4 0 0 1 3.81-4\" /> <path d=\"M3 5a4 4 0 0 0 3.55 3.97\" /> <path d=\"M6 13H2\" /> <path d=\"m8 2 1.88 1.88\" /> <path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\" /> </svg>"};
 const STYLES=[
+{
+"id": "velvet",
+"name": "Синий бархат",
+"tag": "Театр, история",
+"name_kk": "Көк барқыт",
+"tag_kk": "Театр, тарих",
+"desc": "Тёмно-синий и белый: глубокий бархатный фон с мягким светом, тиснёные казахские орнаменты — на каждом слайде свой, фото в белых паспарту с тенью. Один шрифт, крупный контрастный текст.",
+"desc_kk": "Қою көк пен ақ: жұмсақ жарықты барқыт фон, әр слайдта өз ою-өрнегі, ақ паспартудағы фотолар. Бір қаріп, ірі әрі анық мәтін.",
+"fonts": {
+"h": "Commissioner",
+"b": "Commissioner"
+},
+"hw": 800,
+"upper": false,
+"ls": -0.01,
+"radius": 4,
+"bg": "#0C2244",
+"surface": "#14315A",
+"text": "#FFFFFF",
+"muted": "#C9D6EA",
+"accent": "#9FC0F0",
+"accent2": "#FFFFFF",
+"deco": "none",
+"photo": "framed",
+"cover": "split",
+"fam": "editorial",
+"accent3": "#5E86C4",
+"bgp": null,
+"hide": false,
+"skel": null,
+"motifs": "kz",
+"tex": true,
+"dark": true
+},
+{
+"id": "playbill",
+"name": "Программка",
+"tag": "Театр, искусство",
+"name_kk": "Бағдарлама",
+"tag_kk": "Театр, өнер",
+"desc": "Как театральная программка: тёплая слоновая кость, графит и винный акцент, тонкие театральные рисунки — портал сцены, ряды зала, кресло, — на каждом слайде свой. Один шрифт.",
+"desc_kk": "Театр бағдарламасы сияқты: піл сүйегі түсі, графит және шарап түсті екпін, әр слайдта өз театр суреті. Бір қаріп.",
+"fonts": {
+"h": "Onest",
+"b": "Onest"
+},
+"hw": 700,
+"upper": false,
+"ls": -0.01,
+"radius": 2,
+"bg": "#F3EEE6",
+"surface": "#FFFFFF",
+"text": "#1B1717",
+"muted": "#5B524C",
+"accent": "#7B1E2B",
+"accent2": "#1B1717",
+"deco": "none",
+"photo": "framed",
+"cover": "split",
+"fam": "editorial",
+"accent3": "#B9AEA4",
+"bgp": null,
+"hide": false,
+"skel": "rail-plain",
+"motifs": "theatre",
+"tex": true
+},
 {
 "id": "academy",
 "name": "Академия",
@@ -2537,7 +2608,8 @@ const STYLES=[
 "accent3": "#2A9D8F",
 "bgp": "topo",
 "hide": false,
-"skel": "top"
+"skel": "top",
+"motifs": "geo"
 },
 {
 "id": "bordo",
@@ -2932,7 +3004,8 @@ const STYLES=[
 "accent3": "#7FA37A",
 "bgp": "leaves",
 "hide": false,
-"skel": "bandsoft"
+"skel": "bandsoft",
+"motifs": "nature"
 },
 {
 "id": "luxury",
@@ -2963,7 +3036,9 @@ const STYLES=[
 "accent3": "#E7D3A4",
 "bgp": "rings",
 "hide": false,
-"skel": "gold"
+"skel": "gold",
+"motifs": "theatre",
+"tex": true
 },
 {
 "id": "science",
@@ -3054,7 +3129,9 @@ const STYLES=[
 "accent3": "#9A9AA2",
 "bgp": "grain",
 "hide": false,
-"skel": "letterbox"
+"skel": "letterbox",
+"motifs": "theatre",
+"tex": true
 },
 {
 "id": "history",
@@ -3085,7 +3162,9 @@ const STYLES=[
 "accent3": "#B08D57",
 "bgp": "grain",
 "hide": false,
-"skel": "frame"
+"skel": "frame",
+"motifs": "theatre",
+"tex": true
 },
 {
 "id": "pastel",
@@ -3116,7 +3195,8 @@ const STYLES=[
 "accent3": "#F4C06F",
 "bgp": "rings",
 "hide": false,
-"skel": "bubble"
+"skel": "bubble",
+"motifs": "nature"
 },
 {
 "id": "brutal",
@@ -3208,7 +3288,9 @@ const STYLES=[
 "accent3": "#6A994E",
 "bgp": "ornament",
 "hide": false,
-"skel": "band"
+"skel": "band",
+"motifs": "kz",
+"tex": true
 },
 {
 "id": "corporate",
@@ -3239,7 +3321,8 @@ const STYLES=[
 "accent3": "#3E7CB1",
 "bgp": "diagonal",
 "hide": false,
-"skel": "band"
+"skel": "band",
+"motifs": "geo"
 },
 {
 "id": "neon",
@@ -3450,7 +3533,8 @@ const STYLES=[
 "fam": "glass",
 "bgp": "mesh",
 "hide": false,
-"skel": "rail"
+"skel": "rail",
+"motifs": "geo"
 },
 {
 "id": "memphis",
@@ -3851,7 +3935,7 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
 
   function photo(img, cls, k = 'image') {
     if (!img || !img.src) return `<div class="ph ph-empty ${cls}"></div>`;
-    return `<div class="ph ${cls}" data-x="p"><img src="${esc(img.src)}" alt="">` +
+    return `<div class="ph ${cls}" data-x="p"><img class="ph-bg" src="${esc(img.src)}" alt="" aria-hidden="true"><img class="ph-im" src="${esc(img.src)}" alt="${esc(img.alt || '')}" onload="window.AER&&AER.phFit(this)">` +
       (img.credit ? `<div class="credit" data-x="t" data-k="${k}.credit">${esc(img.credit)}</div>` : '') + '</div>';
   }
 
@@ -4014,12 +4098,59 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
       case 'frame': return '<div class="dc frame"></div>';
       case 'corner': return '<div class="dc corner"></div>';
       case 'stripe': return '<div class="dc stripe"></div>';
-      case 'number': return `<div class="dc bignum">${pad(i + 1)}</div>`;
+      case 'number': return '';
       case 'topo': return `<div class="dc blob b1"></div><div class="dc blob b2"></div><div class="dc topo" style="-webkit-mask-image:url(&quot;${TOPO}&quot;);mask-image:url(&quot;${TOPO}&quot;)"></div>`;
       default: return '';
     }
   }
 
+
+  // line motifs drawn in a 200×200 box; a style with "motifs" shows a different one on every slide (never the same twice in a row)
+  const HM = '<path d="M64 98 C64 85 49 83 43 72 C36 60 41 44 54 45 C64 46 64 58 55 59 C50 60 48 54 52 52"/><path d="M64 98 C64 85 79 83 85 72 C92 60 87 44 74 45 C64 46 64 58 73 59 C78 60 80 54 76 52"/><path d="M64 33 L69 40 L64 47 L59 40 Z"/>';
+  const rot = (n, f) => [...Array(n)].map((_, k) => f(k)).join('');
+  const MOTIFS = {
+    kz: [
+      `<g transform="translate(100 104) scale(2.2) translate(-64 -66)">${HM}</g><g transform="translate(100 104) scale(1.45) translate(-64 -66)">${HM}</g>`,
+      '<circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="76"/>' + rot(3, k => `<g transform="rotate(${k * 60} 100 100)"><path d="M24 100 Q100 46 176 100"/><path d="M24 100 Q100 154 176 100"/></g>`) + '<circle cx="100" cy="100" r="16"/>',
+      '<path d="M100 18 L184 150 L16 150 Z"/><path d="M100 52 L154 136 L46 136 Z"/><path d="M100 82 L124 120 L76 120 Z"/>' + [40, 100, 160].map(x => `<path d="M${x} 150 L${x} 176"/><path d="M${x} 176 l7 9 l-7 9 l-7 -9 Z"/>`).join(''),
+      rot(4, k => `<g transform="rotate(${k * 90} 100 100) translate(100 62) translate(-64 -66)">${HM}</g>`) + '<rect x="90" y="90" width="20" height="20" transform="rotate(45 100 100)"/>',
+      rot(4, k => `<g transform="rotate(${k * 90} 100 100)"><path d="M100 100 C100 70 130 60 140 76 C150 92 132 104 122 94"/><path d="M100 100 C70 100 60 70 76 60 C92 50 104 68 94 78"/></g>`) + '<circle cx="100" cy="100" r="8"/>',
+      rot(4, k => `<path d="M${-10 + k * 56} 120 C${-10 + k * 56} 80 ${40 + k * 56} 80 ${40 + k * 56} 110 C${40 + k * 56} 130 ${18 + k * 56} 132 ${14 + k * 56} 116"/>`) + '<path d="M0 150 L200 150"/>',
+      rot(8, k => `<ellipse cx="100" cy="52" rx="20" ry="44" transform="rotate(${k * 45} 100 100)"/>`) + '<circle cx="100" cy="100" r="22"/><circle cx="100" cy="100" r="96"/>'
+    ],
+    theatre: [
+      '<path d="M10 190 L10 40 Q10 14 40 14 L160 14 Q190 14 190 40 L190 190"/><path d="M30 190 L30 50 Q30 32 50 32 L150 32 Q170 32 170 50 L170 190"/><path d="M30 150 L170 150"/><path d="M50 150 L20 190 M150 150 L180 190 M100 150 L100 190"/>',
+      rot(5, k => `<path d="M${70 - k * 14} 190 A${30 + k * 14} ${30 + k * 14} 0 0 1 ${130 + k * 14} 190" stroke-dasharray="10 6"/>`),
+      '<path d="M70 30 Q70 10 100 10 Q130 10 130 30 L130 100"/><path d="M70 30 L70 100"/><path d="M62 100 L138 100 Q142 108 134 112 L66 112 Q58 108 62 100"/><path d="M70 112 L60 190"/><path d="M130 112 L140 190"/><path d="M84 112 L82 186"/><path d="M116 112 L118 186"/><ellipse cx="100" cy="150" rx="30" ry="6"/>',
+      rot(11, k => `<path d="M30 ${30 + k * 14} L${k % 4 === 3 ? 110 : 150} ${30 + k * 14}"/>`) + '<path d="M20 15 L180 15 L180 190 L20 190 Z"/><path d="M160 58 q12 6 0 14 q-12 6 0 14"/>',
+      rot(12, k => { const a = k * Math.PI / 6, x = 100 + 80 * Math.cos(a), y = 100 + 80 * Math.sin(a); return `<path d="M${x.toFixed(1)} ${(y - 7).toFixed(1)} l2 5 5 0 -4 3 2 5 -5 -3 -5 3 2 -5 -4 -3 5 0 Z"/>`; }),
+      '<path d="M100 50 Q60 30 20 40 L20 170 Q60 160 100 180 Q140 160 180 170 L180 40 Q140 30 100 50 Z"/><path d="M100 50 L100 180"/>' + rot(6, k => `<path d="M36 ${64 + k * 16} Q60 ${58 + k * 16} 86 ${66 + k * 16}"/><path d="M114 ${66 + k * 16} Q140 ${58 + k * 16} 164 ${64 + k * 16}"/>`),
+      ['', 'translate(200 0) scale(-1 1)'].map(t => `<g transform="${t}"><path d="M100 185 Q40 150 46 60"/>${rot(5, k => `<ellipse cx="${52 + k * 6}" cy="${160 - k * 20}" rx="7" ry="16" transform="rotate(${-40 + k * 6} ${52 + k * 6} ${160 - k * 20})"/>`)}</g>`).join('')
+    ],
+    geo: [
+      rot(6, k => `<circle cx="100" cy="100" r="${20 + k * 15}"/>`),
+      rot(5, k => `<path d="M${20 + k * 8} ${180 - k * 4} L100 ${20 + k * 14} L${180 - k * 8} ${180 - k * 4} Z"/>`),
+      rot(6, k => `<path d="M0 ${40 + k * 26} Q50 ${20 + k * 26} 100 ${40 + k * 26} T200 ${40 + k * 26}"/>`),
+      rot(3, k => `<rect x="${30 + k * 20}" y="${30 + k * 20}" width="${140 - k * 40}" height="${140 - k * 40}" transform="rotate(45 100 100)"/>`),
+      rot(8, k => `<path d="M100 100 L${(100 + 95 * Math.cos(k * Math.PI / 4)).toFixed(1)} ${(100 + 95 * Math.sin(k * Math.PI / 4)).toFixed(1)}"/>`) + '<circle cx="100" cy="100" r="40"/>',
+      rot(4, k => `<path d="M${20 + k * 40} 180 L${20 + k * 40} ${60 + (k % 2) * 40} L${50 + k * 40} ${30 + (k % 2) * 40} L${50 + k * 40} 180"/>`)
+    ],
+    nature: [
+      '<path d="M100 190 C40 140 40 60 100 10 C160 60 160 140 100 190 Z"/><path d="M100 190 L100 30"/>' + rot(5, k => `<path d="M100 ${60 + k * 24} L${70 - k * 2} ${40 + k * 24} M100 ${60 + k * 24} L${130 + k * 2} ${40 + k * 24}"/>`),
+      '<path d="M0 190 L72 64 Q100 22 128 64 L200 190"/><path d="M72 64 L88 80 L100 66 L113 82 L128 64"/>',
+      '<circle cx="100" cy="100" r="34"/>' + rot(12, k => { const a = k * Math.PI / 6; return `<path d="M${(100 + 50 * Math.cos(a)).toFixed(1)} ${(100 + 50 * Math.sin(a)).toFixed(1)} L${(100 + 90 * Math.cos(a)).toFixed(1)} ${(100 + 90 * Math.sin(a)).toFixed(1)}"/>`; }),
+      rot(5, k => `<path d="M0 ${60 + k * 28} C40 ${40 + k * 28} 60 ${80 + k * 28} 100 ${60 + k * 28} S160 ${40 + k * 28} 200 ${60 + k * 28}"/>`),
+      rot(6, k => `<ellipse cx="100" cy="60" rx="18" ry="40" transform="rotate(${k * 60} 100 100)"/>`) + '<circle cx="100" cy="100" r="14"/>'
+    ]
+  };
+  function motifLayer(st, i) {
+    const set = MOTIFS[st.motifs]; if (!set) return '';
+    const m = set[i % set.length], dark = !!st.dark || isDark(st.bg);
+    const pos = [['right:70px', 'bottom:60px'], ['right:80px', 'top:70px'], ['left:70px', 'bottom:60px']][i % 3];
+    const hi = dark ? 'rgba(255,255,255,.14)' : 'rgba(255,255,255,.9)', sh = dark ? 'rgba(0,0,0,.5)' : 'color-mix(in srgb,var(--tx) 13%,transparent)';
+    const g = (c, d) => `<g transform="translate(${d} ${d})" fill="none" stroke="${c}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${m}</g>`;
+    return `<div class="dc mtf" style="${pos.join(';')};width:300px;height:300px"><svg viewBox="0 0 200 200" width="300" height="300">${g(sh, 1)}${g(hi, -0.6)}</svg></div>`;
+  }
   const onColor = hex => { const n = parseInt(hex.slice(1), 16), l = (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255; return l > 0.6 ? '#111111' : '#FFFFFF'; };
   function vars(st) {
     return `--bg:${st.bg};--sf:${st.surface};--tx:${st.text};--mu:${st.muted};--ac:${st.accent};--a2:${st.accent2};--on-ac:${onColor(st.accent)};--on-a2:${onColor(st.accent2)};${st.accent3 ? `--a3:${st.accent3};` : ''}` +
@@ -4043,22 +4174,37 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
     const body = L[lay](s, st, { sectionNo: sectionNo0 });
     const sectionNo = deck.slides.slice(0, i + 1).filter(x => x.layout === 'section').length;
     const bare = lay === 'title' || lay === 'end' || lay === 'section';
-    const foot = bare ? '' : `<div class="foot">${t('span', 'f-l', '_deck', deck.title)}${t('span', 'f-s', 'source', s.source ? (SRC[deck.lang] || SRC.ru) + s.source : '')}<span class="f-n" data-x="t">${pad(i + 1)} / ${pad(deck.slides.length)}</span></div>`;
+    const foot = bare ? '' : `<div class="foot">${t('span', 'f-l', '_deck', deck.title)}${t('span', 'f-s', 'source', s.source ? (SRC[deck.lang] || SRC.ru) + s.source : '')}</div>`;
     const tag = !bare && s.tag && !/data-k="tag"/.test(body) ? t('div', 'tagpill abs', 'tag', s.tag) : '';
     const ch = s.chips || {};
     const chips = !bare && (ch.items || []).length ? `<div class="chips">${t('b', '', 'chips.label', ch.label)}${ch.items.map((c, j) => t('span', 'chip', `chips.items.${j}`, c)).join('')}</div>` : '';
     const take = !bare && s.takeaway ? `<div class="take">${t('div', '', 'takeaway', s.takeaway)}</div>` : '';
-    return `<div class="slide st-${st.id} sk-${st.skel || 'top'} fam-${st.fam || 'academic'} dc-${st.deco} pt-${st.photo} L-${lay}" style="${vars(st)};--k:1" data-i="${i}" data-n="${pad(i + 1)}">` +
-      `${bare && s.image && st.cover === 'full' && lay !== 'section' ? '' : (st.bgp ? bgLayer(st) + (['bar', 'stripe', 'frame', 'number', 'corner'].includes(st.deco) ? deco(st, i) : '') : deco(st, i))}${tag}<div class="sl-in"><div class="lay">${body}</div>${chips}${take}</div>${foot}</div>`;
+    const flip = i % 2 === 1 && ['statement', 'bullets', 'two-col', 'big-number', 'summary'].includes(lay) && s.image ? ' flip' : '';
+    return `<div class="slide${flip} st-${st.id} sk-${st.skel || 'top'} fam-${st.fam || 'academic'} dc-${st.deco} pt-${st.photo} L-${lay}" style="${vars(st)};--k:1" data-i="${i}" data-n="${pad(i + 1)}">` +
+      `${bare && s.image && st.cover === 'full' && lay !== 'section' ? '' : (st.bgp ? bgLayer(st) + (['bar', 'stripe', 'frame', 'number', 'corner'].includes(st.deco) ? deco(st, i) : '') : deco(st, i))}${st.tex ? '<div class="dc tex"></div>' : ''}${bare && s.image ? '' : motifLayer(st, i)}${tag}<div class="sl-in"><div class="lay">${body}</div>${chips}${take}</div>${foot}</div>`;
   }
 
   // shrink a slide's type scale until no .fit region overflows (capacity rule from the spec)
+  function phFit(im) {
+    const ph = im.parentElement; if (!ph || !im.naturalWidth) return;
+    const w = ph.clientWidth, h = ph.clientHeight; if (!w || !h) return;
+    const ra = im.naturalWidth / im.naturalHeight, rf = w / h, d = Math.max(ra / rf, rf / ra);
+    ph.classList.toggle('ph-cover', d < (/\b(cover-ph|sec-ph|gal-ph)\b/.test(ph.className) ? 2.3 : 1.45));
+    // a side photo of a very different shape: the frame takes the photo's own shape instead of blurred bands
+    if (d >= 1.45 && /\b(side-ph|fx-ph|dz-ph|q-ph)\b/.test(ph.className)) {
+      ph.style.aspectRatio = ra.toFixed(3);
+      if (ra > rf) { ph.style.height = 'auto'; ph.style.alignSelf = 'center'; }
+      else { ph.style.width = 'auto'; ph.style.flex = '0 0 auto'; ph.style.alignSelf = 'stretch'; }
+      ph.classList.add('ph-cover');
+    }
+  }
   function fit(slide) {
+    slide.querySelectorAll('img.ph-im').forEach(im => { if (im.complete) phFit(im); });
     let k = 1;
     slide.style.setProperty('--k', 1);
     const over = () => [...slide.querySelectorAll('.fit, .cover-txt, .col, .lay')].some(e => e.scrollHeight > e.clientHeight + 12) ||
       [...slide.querySelectorAll('.title')].some(e => e.scrollWidth > e.clientWidth + 4); // a long word in a narrow column
-    while (over() && k > 0.55) { k -= 0.05; slide.style.setProperty('--k', k.toFixed(2)); }
+    while (over() && k > 0.62) { k -= 0.05; slide.style.setProperty('--k', k.toFixed(2)); }
   }
 
   function fontsHref(styles) {
@@ -4067,9 +4213,27 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
     return 'https://fonts.googleapis.com/css2?' + [...fams].map(f => 'family=' + f.replace(/ /g, '+') + ':wght@400;500;600;700;800').join('&') + '&display=swap';
   }
 
-  window.AER = { renderSlide, fit, fontsHref, LAYOUTS, esc };
+  window.AER = { renderSlide, fit, phFit, fontsHref, LAYOUTS, esc };
 })();
 
+const EXTRA_CSS = `
+.slide .ph img.ph-bg{object-fit:cover;filter:blur(26px) brightness(.62) saturate(1.1);transform:scale(1.15)}
+.slide .ph img.ph-im{object-fit:contain}
+.slide .ph.ph-cover img.ph-im{object-fit:cover;object-position:50% 28%}
+.slide .ph.ph-cover img.ph-bg{display:none}
+.slide .mtf{z-index:0;opacity:1}
+.slide .tex{inset:0;z-index:0;background:radial-gradient(ellipse 80% 75% at 50% 45%,transparent 55%,rgba(0,0,0,.22) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:overlay;opacity:.55}
+.st-velvet{background:radial-gradient(ellipse 70% 85% at 50% -12%,rgba(80,120,190,.40),rgba(80,120,190,0) 60%),linear-gradient(160deg,#16365F 0%,#0C2244 50%,#081A35 100%)}
+.st-velvet .card,.st-playbill .card{box-shadow:0 18px 40px rgba(0,0,0,.28)}
+.st-velvet .ph,.st-playbill .ph{box-shadow:0 26px 56px rgba(0,0,0,.45);border:10px solid #fff;border-radius:2px}
+.st-playbill{background:radial-gradient(ellipse 80% 90% at 25% 0%,#FBF8F3 0%,#F3EEE6 55%,#E9E1D6 100%)}
+.st-playbill .title{letter-spacing:-.01em}
+.st-playbill .kicker,.st-velvet .kicker{letter-spacing:.2em}
+.slide .g-section .sec-ph img.ph-im{object-fit:contain}
+.slide.flip .side-ph{order:-1}
+.slide .foot .f-s{margin-left:auto}
+`;
+document.head.insertAdjacentHTML('beforeend', '<style id="aep-extra">' + EXTRA_CSS + '</style>');
 const LIMITS = { agenda: 6, bullets: 5, 'two-col': 4, kpi: 4, timeline: 6, process: 5, comparison: 3, summary: 4, cards: 6, focus: 3, facts: 4, sources: 12, dossier: 7, 'before-after': 2 };
 const LAYOUTS = ['title', 'agenda', 'section', 'statement', 'bullets', 'cards', 'focus', 'facts', 'table', 'two-col', 'quote', 'big-number', 'kpi', 'timeline', 'process', 'comparison', 'chart', 'gallery', 'summary', 'sources', 'dossier', 'before-after', 'end'];
 const ICONS = 'landmark scale gavel map map-pin mountain trees droplets sun wind snowflake cloud-rain flame factory tractor wheat sprout leaf recycle fish users user baby graduation-cap school book-open lightbulb brain target flag trophy award star shield shield-check triangle-alert circle-check circle-x clock calendar trending-up trending-down chart-column chart-pie coins wallet banknote briefcase building-2 house hospital heart-pulse stethoscope syringe microscope flask-conical atom dna cpu smartphone globe plane train-front car ship truck zap battery-charging palette music camera film message-circle search file-text clipboard-check handshake rocket layers settings link lock eye compass route mail phone hammer ruler utensils shopping-cart thermometer bug'.split(' ');
@@ -4095,7 +4259,17 @@ const RULES = `Задача: презентация должна по-насто
 - Объём: text до 45 слов, text в пунктах 12–28 слов, title пункта 2–5 слов.
 - История связная: вступление → суть → детали, данные и примеры → проблемы → решения → итог.
 - Сначала продумай логику рассказа (идея из сильных презентаций): заголовки слайдов подряд должны читаться как цепочка доводов «тезис → доказательство → вывод», где каждый следующий слайд отвечает на вопрос предыдущего. Никаких слайдов «для объёма».
-- Разнообразие: используй разные макеты, не ставь один макет два раза подряд. Почти каждый слайд несёт визуальный элемент: фото, иконки, цифры, таблицу, график или шаги.`;
+- Разнообразие: используй разные макеты, не ставь один макет два раза подряд. Почти каждый слайд несёт визуальный элемент: фото, иконки, цифры, таблицу, график или шаги.
+ЖЁСТКИЕ ПРАВИЛА (нарушать нельзя):
+1. Достоверность важнее красоты. Не выдумывай факты, даты, имена, цитаты, премии, названия спектаклей, книг, законов и цифры. Если не уверен — не пиши это вовсе. Лучше меньше, но точно.
+2. Если в «Требованиях автора» дан готовый текст или сценарий по слайдам — бери его смысл и формулировки, ничего не добавляй от себя и не меняй факты; только раздели по слайдам и сократи под лимиты.
+3. Если источники расходятся в дате — не ставь точный год, пиши период («в середине 1970-х»).
+4. Цитата (макет quote) — только реальная, дословная, с реальным автором. Нет точной цитаты — не используй макет quote.
+5. Никаких «воды» и общих фраз: каждая строка — факт, имя, дата, число или конкретный вывод. Не повторяй одно и то же на разных слайдах.
+6. Строго соблюдай лимиты слов: длинный текст будет обрезан на слайде. Заголовок до 10 слов, пункт до 28 слов.
+7. Не пиши в тексте номера слайдов, слова «Слайд 3», служебные пометки, markdown (**, #), эмодзи.
+8. Ровно столько слайдов, сколько просили. Ровно тот язык, который просили.
+9. Для темы о конкретном человеке imageQuery — его полное имя латиницей (например "Lev Dodin"), для спектакля — название и театр, для места — точное название места.`;
 
 const LAYOUT_SPEC = `Макеты (поле layout) и их поля:
 - title: title, subtitle, text (короткая строка вроде «Лекция · 2026»). Всегда первый слайд.
@@ -4189,7 +4363,7 @@ async function askJSON(prompt, job) {
     const out = await runAI(prompt + (last ? `\n\nПрошлый ответ не разобрался как JSON (${last}). Верни строго валидный JSON.` : ''), job);
     try { return parseJSON(out); } catch (e) { last = e.message; }
   }
-  throw new Error('Не удалось получить корректный ответ от Claude: ' + last);
+  throw new Error('ИИ вернул неверный ответ. Нажмите «Повторить». (' + last + ')');
 }
 
 // Kazakh editor: a second AI reads every text and fixes spelling, endings (vowel harmony), cases and calques,
@@ -4273,7 +4447,7 @@ async function pool(tasks, n) {
           r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
             // a model that hangs for 100 s is skipped: the next model / key answers instead of the user waiting minutes
             method: 'POST', signal: AbortSignal.any ? AbortSignal.any([opts.signal, AbortSignal.timeout(100000)].filter(Boolean)) : opts.signal, headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
-            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0.7 } })
+            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: typeof opts.temperature === 'number' ? opts.temperature : 0.5 } })
           });
         } catch (e) { if (opts.signal?.aborted) throw { code: 'cancelled' }; last = { code: 'upstream_error', message: String(e) }; continue; }
         const j = await r.json().catch(() => ({}));
@@ -4489,7 +4663,7 @@ async function runAI(prompt, job) {
   if (!window.AEP_PHOTOS) prompt = prompt.replace(/Фото должны строго[\s\S]*?images\[\]\.query\./, NO_PHOTO);
   const ctl = new AbortController();
   (job.ctls ??= new Set()).add(ctl);
-  try { return (await cap.sample(prompt, { signal: ctl.signal, cache: false })).text; }
+  try { return (await cap.sample(prompt, { signal: ctl.signal, cache: false, temperature: job.temperature })).text; }
   catch (e) { throw new Error(e.code === 'cancelled' ? CANCELLED : aiError(e)); }
   finally { job.ctls.delete(ctl); }
 }
@@ -4726,7 +4900,7 @@ async function editor(id, preloaded) {
       <div class="acts"><button class="btn ghost" id="lookb">${L.look}</button><button class="btn ghost" id="play">${L.show}</button><button class="btn ghost" id="pdf">PDF</button><button class="btn dark" id="pptx">PPTX</button></div></div>
     <div class="side" id="side"></div>
     <div class="mainv"><div id="main"></div>
-      <div class="tools"><button class="btn ghost" id="rw">✎ ${L.rewrite}</button>${window.AEP_FIND_PHOTO ? `<button class="btn ghost" id="phs">🔎 ${L.newPhoto}</button>` : ''}<label class="btn ghost" for="phf">🖼 ${L.addPhoto}</label><input type="file" id="phf" accept="image/*" hidden>
+      <div class="tools"><button class="btn dark" id="chat">💬 ${UI === 'kk' ? 'Чатпен түзету' : 'Чат-правка'}</button><button class="btn ghost" id="rw">✎ ${L.rewrite}</button>${window.AEP_FIND_PHOTO ? `<button class="btn ghost" id="phs">🔎 ${L.newPhoto}</button>` : ''}<label class="btn ghost" for="phf">🖼 ${L.addPhoto}</label><input type="file" id="phf" accept="image/*" hidden>
         <button class="btn ghost" id="add">＋ ${L.addSlide}</button><button class="btn ghost" id="lay">▦ ${L.layoutBtn}</button><button class="btn ghost" id="dup">⧉ ${L.dup}</button><button class="btn ghost" id="undo" aria-label="${L.undo}">↶</button><button class="btn ghost" id="up" aria-label="${L.up}">↑</button><button class="btn ghost" id="down" aria-label="${L.down}">↓</button><button class="btn ghost" id="rm" aria-label="${L.del}">✕</button></div>
       <textarea class="in" id="notes" rows="3" placeholder="${L.notes}"></textarea></div></div>`;
   $('#back').onclick = () => go('library');
@@ -4833,7 +5007,7 @@ async function editor(id, preloaded) {
     const wish = await ask(L.rewrite, L.rewriteQ); if (wish === null) return;
     const btn = $('#rw'), old = btn.innerHTML; btn.disabled = true; btn.textContent = L.rewriteWait;
     try {
-      const style = styleOf(deck.styleId), s = deck.slides[cur], { image, images, ...plain } = s, job = {};
+      const style = styleOf(deck.styleId), s = deck.slides[cur], { image, images, ...plain } = s, job = { temperature: 0.3 };
       const r = await askJSON(`Перепиши один слайд презентации «${deck.title}» (тема: ${deck.topic}).\n${LANG[deck.lang] || LANG.ru}\nСтиль: «${style.name}».\n${RULES}\n\n${LAYOUT_SPEC}\n\nТекущий слайд №${cur + 1} из ${deck.slides.length}:\n${JSON.stringify(plain)}\n${wish.trim() ? 'Пожелание автора (выполни обязательно): ' + wish.trim() : 'Сделай его конкретнее, яснее и интереснее, исправь ошибки.'}\nСохрани layout «${s.layout}», если пожелание не просит другого. Верни только JSON: {"slide":{...}}`, job);
       const ns = normSlide({ ...(r.slide || r), layout: (r.slide || r).layout || s.layout });
       if (deck.lang === 'kk') await proofreadKk({ slides: [ns], title: deck.title }, job);
@@ -4842,9 +5016,88 @@ async function editor(id, preloaded) {
     } catch (e) { toast(e.message); }
     btn.disabled = false; btn.innerHTML = old;
   };
+  // ---------- chat edits: "на 6 слайде исправь текст", "удали 3 слайд", "добавь слайд про ..." ----------
+  $('#chat').onclick = () => {
+    const kk = UI === 'kk';
+    const ov = sheet(`<h3>${kk ? 'Чатпен түзету' : 'Чат-правка'}</h3><div class="sub">${kk ? 'Не өзгерту керек екенін жазыңыз: «6-слайдтағы тақырыпты қысқарт», «3-слайдты өшір», «соңына дереккөздер қос».' : 'Напишите, что изменить: «на 6 слайде исправь заголовок на …», «удали 3 слайд», «добавь после 4 слайд про …», «сократи текст на 2 слайде», «поменяй местами 5 и 6».'}</div>
+      <div id="ch-log" class="chlog"></div><textarea class="in" id="ch-v" rows="3"></textarea>
+      <div class="row2"><button class="btn ghost" id="ch-c">${L.close}</button><button class="btn dark" id="ch-s">${kk ? 'Жіберу' : 'Отправить'}</button></div>`);
+    ov.firstElementChild.classList.add('wide');
+    const log = $('#ch-log', ov), say = (who, txt) => { const d = document.createElement('div'); d.className = 'chmsg ' + who; d.textContent = txt; log.append(d); log.scrollTop = 1e9; };
+    $('#ch-c', ov).onclick = () => ov.remove();
+    $('#ch-v', ov).value = `${kk ? 'Слайд' : 'Слайд'} ${cur + 1}: `;
+    $('#ch-s', ov).onclick = async () => {
+      const msg = $('#ch-v', ov).value.trim(); if (!msg) return;
+      const btn = $('#ch-s', ov); btn.disabled = true; say('me', msg); $('#ch-v', ov).value = '';
+      try {
+        const res = await chatEdit(deck, msg, cur);
+        if (res.applied) { snap(); deck = res.deck; st = styleOf(deck.styleId); cur = Math.min(cur, deck.slides.length - 1); $('#dt').value = deck.title; redraw(); }
+        say('ai', res.reply || (res.applied ? (kk ? 'Дайын.' : 'Готово.') : (kk ? 'Өзгеріс жоқ.' : 'Ничего не изменено.')));
+      } catch (e) { say('ai', e.message); }
+      btn.disabled = false;
+    };
+  };
   $('#pptx').onclick = () => exportDeck('pptx', deck, st, $('#pptx'));
   $('#pdf').onclick = () => exportDeck('pdf', deck, st, $('#pdf'));
   thumbs(); select(0);
+}
+
+// Chat edit: the model gets the whole deck (texts only, numbered from 1) and the user's request, and returns
+// a list of operations. Every operation is checked here; only what was asked is changed, other slides stay as they are.
+const CHAT_RULES = `Ты — редактор готовой презентации. Пользователь пишет, что изменить. Выполни ТОЛЬКО то, что он просит.
+ЖЁСТКИЕ ПРАВИЛА:
+1. Слайды нумеруются с 1, как в поле n. «6 слайд», «шестой слайд», «слайд 6» — это n=6.
+2. Не трогай слайды и поля, о которых пользователь не просил. Не переписывай весь слайд, если просят поменять одно слово или заголовок — используй op "edit" только с нужными полями.
+3. Если пользователь дал точный текст — вставь его дословно, без улучшений.
+4. Не выдумывай факты, даты, имена, цифры, цитаты. Если для правки нужен факт, которого ты точно не знаешь, — не вставляй его, а объясни это в reply.
+5. Язык текста — язык презентации. Без markdown, эмодзи и номеров слайдов в тексте.
+6. Если просьба непонятна — ops: [] и в reply коротко спроси, что именно изменить.
+7. Соблюдай лимиты: заголовок до 10 слов, пункт до 28 слов, у макета не больше пунктов, чем указано в правилах макетов.
+Операции (поле ops, выполняются по порядку, номера — по исходной нумерации):
+- {"op":"edit","n":6,"fields":{"title":"...","items.1.text":"...","subtitle":"..."}} — заменить отдельные поля (пути через точку, индексы пунктов с 0).
+- {"op":"replace","n":6,"slide":{...полный слайд по правилам макетов...}} — переписать слайд целиком.
+- {"op":"insert","after":4,"slide":{...}} — новый слайд после слайда 4 (after:0 — в начало).
+- {"op":"delete","n":7}
+- {"op":"move","n":2,"to":5} — поставить слайд 2 на место 5.
+- {"op":"photo","n":3,"query":"английский запрос для фото"} — подобрать новое фото.
+- {"op":"title","value":"..."} — название всей презентации.
+Верни только JSON: {"reply":"одна-две фразы на языке пользователя: что сделано","ops":[...]}`;
+async function chatEdit(deck, msg, cur) {
+  const style = styleOf(deck.styleId);
+  const view_ = deck.slides.map((s, i) => { const { image, images, notes, ...plain } = s; return { n: i + 1, ...plain, hasPhoto: !!image?.src }; });
+  const job = { temperature: 0.2 };
+  const r = await askJSON(`${CHAT_RULES}\n\n${LANG[deck.lang] || LANG.ru}\nСтиль: «${style.name}».\n\n${LAYOUT_SPEC}\n\nПрезентация «${deck.title}» (тема: ${deck.topic || deck.title}), сейчас открыт слайд ${cur + 1}:\n${JSON.stringify(view_)}\n\nПросьба пользователя: ${msg}`, job);
+  const ops = Array.isArray(r.ops) ? r.ops : [];
+  if (!ops.length) return { applied: false, reply: String(r.reply || '') };
+  const d = JSON.parse(JSON.stringify(deck));
+  const orig = d.slides.slice(); // references by original number
+  const at = n => orig[(parseInt(n, 10) || 0) - 1];
+  const ALLOWED = /^(kicker|title|subtitle|text|quote|author|number|unit|source|tag|takeaway|label|notes|imageQuery|items\.\d+\.(title|text|value|points\.\d+)|box\.(title|points\.\d+)|chips\.(label|items\.\d+)|table\.(head\.\d+|rows\.\d+\.\d+)|chart\.labels\.\d+|images\.\d+\.caption)$/;
+  const setPath = (obj, path, val) => { const ks = path.split('.'); let o = obj; for (const k of ks.slice(0, -1)) { if (o[k] == null) o[k] = /^\d+$/.test(k) ? {} : {}; o = o[k]; } o[ks.at(-1)] = val; };
+  const changed = new Set(); let applied = 0;
+  const photoJobs = [];
+  for (const op of ops) {
+    const kind = op?.op;
+    if (kind === 'title' && op.value) { d.title = String(op.value).trim(); applied++; continue; }
+    if (kind === 'edit') { const s = at(op.n); if (!s || !op.fields) continue;
+      for (const [k, v] of Object.entries(op.fields)) if (ALLOWED.test(k) && typeof v === 'string' && v.trim()) { setPath(s, k, v.trim()); applied++; changed.add(s); } continue; }
+    if (kind === 'replace') { const s = at(op.n); if (!s || !op.slide) continue;
+      const ns = normSlide({ ...op.slide, layout: op.slide.layout || s.layout }); if (s.image) ns.image = s.image;
+      const k = d.slides.indexOf(s); if (k < 0) continue; d.slides[k] = ns; orig[orig.indexOf(s)] = ns; changed.add(ns); applied++; continue; }
+    if (kind === 'insert' && op.slide) { const ns = normSlide(op.slide); const ref = at(op.after); const k = ref ? d.slides.indexOf(ref) + 1 : 0;
+      d.slides.splice(k, 0, ns); changed.add(ns); applied++; if (ns.imageQuery) photoJobs.push([ns, ns.imageQuery]); continue; }
+    if (kind === 'delete') { const s = at(op.n); const k = d.slides.indexOf(s); if (k >= 0 && d.slides.length > 1) { d.slides.splice(k, 1); applied++; } continue; }
+    if (kind === 'move') { const s = at(op.n); const k = d.slides.indexOf(s); if (k < 0) continue; d.slides.splice(k, 1);
+      d.slides.splice(Math.max(0, Math.min(d.slides.length, (parseInt(op.to, 10) || 1) - 1)), 0, s); applied++; continue; }
+    if (kind === 'photo') { const s = at(op.n); if (s && op.query) photoJobs.push([s, String(op.query)]); continue; }
+  }
+  for (const [s, q] of photoJobs) {
+    if (!window.AEP_FIND_PHOTO) break;
+    try { const used = new Set(d.slides.map(x => x.image?.page).filter(Boolean)); const f = await window.AEP_FIND_PHOTO(q, '', used); if (f) { s.image = f; s.imageQuery = q; applied++; } } catch { }
+  }
+  if (!applied) return { applied: false, reply: String(r.reply || '') };
+  if (d.lang === 'kk' && changed.size) await proofreadKk({ slides: [...changed], title: d.title }, job);
+  return { applied: true, deck: d, reply: String(r.reply || '') };
 }
 
 // a phone photo: shrunk to 1600 px, kept in the artifact's asset store (else inline, smaller)
@@ -4977,7 +5230,7 @@ async function exportDeck(fmt, deck, st, btn) {
   try {
     await loadLib(fmt, fmt === 'pptx' ? 'https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js' : 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
     const est = AET.apply(st, deck.theme);
-    const css = SLIDES_CSS + '\n' + await fontCSS(est);
+    const css = SLIDES_CSS + '\n' + EXTRA_CSS + '\n' + await fontCSS(est);
     let out;
     if (fmt === 'pptx') { out = new PptxGenJS(); out.layout = 'LAYOUT_WIDE'; out.title = deck.title; }
     else out = new jspdf.jsPDF({ orientation: 'landscape', unit: 'px', format: [1920, 1080], hotfixes: ['px_scaling'] });
@@ -4985,7 +5238,7 @@ async function exportDeck(fmt, deck, st, btn) {
       btn.textContent = `${i + 1}/${deck.slides.length}`;
       stage.innerHTML = AER.renderSlide(deck, i, st);
       const sl = stage.firstElementChild;
-      await document.fonts.ready; AER.fit(sl); await inlineImages(sl);
+      await document.fonts.ready; await inlineImages(sl); AER.fit(sl);
       if (fmt === 'pptx') {
         const bg = await slideToCanvas(sl, css, 'bg') || await plainCanvas(sl, est), IN = 144, s = out.addSlide();
         s.addImage({ data: bg.toDataURL('image/png'), x: 0, y: 0, w: 13.333, h: 7.5 });
