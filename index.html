@@ -2496,6 +2496,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .show .rise{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
 @media (prefers-reduced-motion:reduce){.show .sbox,.show .rise{animation:none!important}}
 
+.chlog{max-height:38vh;overflow:auto;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.chmsg{padding:10px 12px;border-radius:12px;font-size:15px;line-height:1.4;max-width:88%;white-space:pre-wrap}
+.chmsg.me{align-self:flex-end;background:#1b1b1f;color:#fff}
+.chmsg.ai{align-self:flex-start;background:#f0f0f3;color:#1b1b1f}
 </style>
 <header class="top">
   <span class="brand"><span class="logo">AE</span><span>Презентация</span></span>
@@ -3851,7 +3855,7 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
 
   function photo(img, cls, k = 'image') {
     if (!img || !img.src) return `<div class="ph ph-empty ${cls}"></div>`;
-    return `<div class="ph ${cls}" data-x="p"><img src="${esc(img.src)}" alt="">` +
+    return `<div class="ph ${cls}" data-x="p"><img class="ph-bg" src="${esc(img.src)}" alt="" aria-hidden="true"><img class="ph-im" src="${esc(img.src)}" alt="${esc(img.alt || '')}">` +
       (img.credit ? `<div class="credit" data-x="t" data-k="${k}.credit">${esc(img.credit)}</div>` : '') + '</div>';
   }
 
@@ -4014,7 +4018,7 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
       case 'frame': return '<div class="dc frame"></div>';
       case 'corner': return '<div class="dc corner"></div>';
       case 'stripe': return '<div class="dc stripe"></div>';
-      case 'number': return `<div class="dc bignum">${pad(i + 1)}</div>`;
+      case 'number': return '';
       case 'topo': return `<div class="dc blob b1"></div><div class="dc blob b2"></div><div class="dc topo" style="-webkit-mask-image:url(&quot;${TOPO}&quot;);mask-image:url(&quot;${TOPO}&quot;)"></div>`;
       default: return '';
     }
@@ -4043,12 +4047,13 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
     const body = L[lay](s, st, { sectionNo: sectionNo0 });
     const sectionNo = deck.slides.slice(0, i + 1).filter(x => x.layout === 'section').length;
     const bare = lay === 'title' || lay === 'end' || lay === 'section';
-    const foot = bare ? '' : `<div class="foot">${t('span', 'f-l', '_deck', deck.title)}${t('span', 'f-s', 'source', s.source ? (SRC[deck.lang] || SRC.ru) + s.source : '')}<span class="f-n" data-x="t">${pad(i + 1)} / ${pad(deck.slides.length)}</span></div>`;
+    const foot = bare ? '' : `<div class="foot">${t('span', 'f-l', '_deck', deck.title)}${t('span', 'f-s', 'source', s.source ? (SRC[deck.lang] || SRC.ru) + s.source : '')}</div>`;
     const tag = !bare && s.tag && !/data-k="tag"/.test(body) ? t('div', 'tagpill abs', 'tag', s.tag) : '';
     const ch = s.chips || {};
     const chips = !bare && (ch.items || []).length ? `<div class="chips">${t('b', '', 'chips.label', ch.label)}${ch.items.map((c, j) => t('span', 'chip', `chips.items.${j}`, c)).join('')}</div>` : '';
     const take = !bare && s.takeaway ? `<div class="take">${t('div', '', 'takeaway', s.takeaway)}</div>` : '';
-    return `<div class="slide st-${st.id} sk-${st.skel || 'top'} fam-${st.fam || 'academic'} dc-${st.deco} pt-${st.photo} L-${lay}" style="${vars(st)};--k:1" data-i="${i}" data-n="${pad(i + 1)}">` +
+    const flip = i % 2 === 1 && ['statement', 'bullets', 'two-col', 'big-number', 'summary'].includes(lay) && s.image ? ' flip' : '';
+    return `<div class="slide${flip} st-${st.id} sk-${st.skel || 'top'} fam-${st.fam || 'academic'} dc-${st.deco} pt-${st.photo} L-${lay}" style="${vars(st)};--k:1" data-i="${i}" data-n="${pad(i + 1)}">` +
       `${bare && s.image && st.cover === 'full' && lay !== 'section' ? '' : (st.bgp ? bgLayer(st) + (['bar', 'stripe', 'frame', 'number', 'corner'].includes(st.deco) ? deco(st, i) : '') : deco(st, i))}${tag}<div class="sl-in"><div class="lay">${body}</div>${chips}${take}</div>${foot}</div>`;
   }
 
@@ -4058,7 +4063,7 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
     slide.style.setProperty('--k', 1);
     const over = () => [...slide.querySelectorAll('.fit, .cover-txt, .col, .lay')].some(e => e.scrollHeight > e.clientHeight + 12) ||
       [...slide.querySelectorAll('.title')].some(e => e.scrollWidth > e.clientWidth + 4); // a long word in a narrow column
-    while (over() && k > 0.55) { k -= 0.05; slide.style.setProperty('--k', k.toFixed(2)); }
+    while (over() && k > 0.62) { k -= 0.05; slide.style.setProperty('--k', k.toFixed(2)); }
   }
 
   function fontsHref(styles) {
@@ -4070,6 +4075,14 @@ Object.entries({"ru": {"heroPhone": "Выберите стиль, напишит
   window.AER = { renderSlide, fit, fontsHref, LAYOUTS, esc };
 })();
 
+const EXTRA_CSS = `
+.slide .ph img.ph-bg{object-fit:cover;filter:blur(26px) brightness(.62) saturate(1.1);transform:scale(1.15)}
+.slide .ph img.ph-im{object-fit:contain}
+.slide .g-section .sec-ph img.ph-im{object-fit:contain}
+.slide.flip .side-ph{order:-1}
+.slide .foot .f-s{margin-left:auto}
+`;
+document.head.insertAdjacentHTML('beforeend', '<style id="aep-extra">' + EXTRA_CSS + '</style>');
 const LIMITS = { agenda: 6, bullets: 5, 'two-col': 4, kpi: 4, timeline: 6, process: 5, comparison: 3, summary: 4, cards: 6, focus: 3, facts: 4, sources: 12, dossier: 7, 'before-after': 2 };
 const LAYOUTS = ['title', 'agenda', 'section', 'statement', 'bullets', 'cards', 'focus', 'facts', 'table', 'two-col', 'quote', 'big-number', 'kpi', 'timeline', 'process', 'comparison', 'chart', 'gallery', 'summary', 'sources', 'dossier', 'before-after', 'end'];
 const ICONS = 'landmark scale gavel map map-pin mountain trees droplets sun wind snowflake cloud-rain flame factory tractor wheat sprout leaf recycle fish users user baby graduation-cap school book-open lightbulb brain target flag trophy award star shield shield-check triangle-alert circle-check circle-x clock calendar trending-up trending-down chart-column chart-pie coins wallet banknote briefcase building-2 house hospital heart-pulse stethoscope syringe microscope flask-conical atom dna cpu smartphone globe plane train-front car ship truck zap battery-charging palette music camera film message-circle search file-text clipboard-check handshake rocket layers settings link lock eye compass route mail phone hammer ruler utensils shopping-cart thermometer bug'.split(' ');
@@ -4095,7 +4108,17 @@ const RULES = `Задача: презентация должна по-насто
 - Объём: text до 45 слов, text в пунктах 12–28 слов, title пункта 2–5 слов.
 - История связная: вступление → суть → детали, данные и примеры → проблемы → решения → итог.
 - Сначала продумай логику рассказа (идея из сильных презентаций): заголовки слайдов подряд должны читаться как цепочка доводов «тезис → доказательство → вывод», где каждый следующий слайд отвечает на вопрос предыдущего. Никаких слайдов «для объёма».
-- Разнообразие: используй разные макеты, не ставь один макет два раза подряд. Почти каждый слайд несёт визуальный элемент: фото, иконки, цифры, таблицу, график или шаги.`;
+- Разнообразие: используй разные макеты, не ставь один макет два раза подряд. Почти каждый слайд несёт визуальный элемент: фото, иконки, цифры, таблицу, график или шаги.
+ЖЁСТКИЕ ПРАВИЛА (нарушать нельзя):
+1. Достоверность важнее красоты. Не выдумывай факты, даты, имена, цитаты, премии, названия спектаклей, книг, законов и цифры. Если не уверен — не пиши это вовсе. Лучше меньше, но точно.
+2. Если в «Требованиях автора» дан готовый текст или сценарий по слайдам — бери его смысл и формулировки, ничего не добавляй от себя и не меняй факты; только раздели по слайдам и сократи под лимиты.
+3. Если источники расходятся в дате — не ставь точный год, пиши период («в середине 1970-х»).
+4. Цитата (макет quote) — только реальная, дословная, с реальным автором. Нет точной цитаты — не используй макет quote.
+5. Никаких «воды» и общих фраз: каждая строка — факт, имя, дата, число или конкретный вывод. Не повторяй одно и то же на разных слайдах.
+6. Строго соблюдай лимиты слов: длинный текст будет обрезан на слайде. Заголовок до 10 слов, пункт до 28 слов.
+7. Не пиши в тексте номера слайдов, слова «Слайд 3», служебные пометки, markdown (**, #), эмодзи.
+8. Ровно столько слайдов, сколько просили. Ровно тот язык, который просили.
+9. Для темы о конкретном человеке imageQuery — его полное имя латиницей (например "Lev Dodin"), для спектакля — название и театр, для места — точное название места.`;
 
 const LAYOUT_SPEC = `Макеты (поле layout) и их поля:
 - title: title, subtitle, text (короткая строка вроде «Лекция · 2026»). Всегда первый слайд.
@@ -4189,7 +4212,7 @@ async function askJSON(prompt, job) {
     const out = await runAI(prompt + (last ? `\n\nПрошлый ответ не разобрался как JSON (${last}). Верни строго валидный JSON.` : ''), job);
     try { return parseJSON(out); } catch (e) { last = e.message; }
   }
-  throw new Error('Не удалось получить корректный ответ от Claude: ' + last);
+  throw new Error('ИИ вернул неверный ответ. Нажмите «Повторить». (' + last + ')');
 }
 
 // Kazakh editor: a second AI reads every text and fixes spelling, endings (vowel harmony), cases and calques,
@@ -4273,7 +4296,7 @@ async function pool(tasks, n) {
           r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`, {
             // a model that hangs for 100 s is skipped: the next model / key answers instead of the user waiting minutes
             method: 'POST', signal: AbortSignal.any ? AbortSignal.any([opts.signal, AbortSignal.timeout(100000)].filter(Boolean)) : opts.signal, headers: { 'content-type': 'application/json', 'x-goog-api-key': key },
-            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: 0.7 } })
+            body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { responseMimeType: 'application/json', temperature: typeof opts.temperature === 'number' ? opts.temperature : 0.5 } })
           });
         } catch (e) { if (opts.signal?.aborted) throw { code: 'cancelled' }; last = { code: 'upstream_error', message: String(e) }; continue; }
         const j = await r.json().catch(() => ({}));
@@ -4489,7 +4512,7 @@ async function runAI(prompt, job) {
   if (!window.AEP_PHOTOS) prompt = prompt.replace(/Фото должны строго[\s\S]*?images\[\]\.query\./, NO_PHOTO);
   const ctl = new AbortController();
   (job.ctls ??= new Set()).add(ctl);
-  try { return (await cap.sample(prompt, { signal: ctl.signal, cache: false })).text; }
+  try { return (await cap.sample(prompt, { signal: ctl.signal, cache: false, temperature: job.temperature })).text; }
   catch (e) { throw new Error(e.code === 'cancelled' ? CANCELLED : aiError(e)); }
   finally { job.ctls.delete(ctl); }
 }
@@ -4726,7 +4749,7 @@ async function editor(id, preloaded) {
       <div class="acts"><button class="btn ghost" id="lookb">${L.look}</button><button class="btn ghost" id="play">${L.show}</button><button class="btn ghost" id="pdf">PDF</button><button class="btn dark" id="pptx">PPTX</button></div></div>
     <div class="side" id="side"></div>
     <div class="mainv"><div id="main"></div>
-      <div class="tools"><button class="btn ghost" id="rw">✎ ${L.rewrite}</button>${window.AEP_FIND_PHOTO ? `<button class="btn ghost" id="phs">🔎 ${L.newPhoto}</button>` : ''}<label class="btn ghost" for="phf">🖼 ${L.addPhoto}</label><input type="file" id="phf" accept="image/*" hidden>
+      <div class="tools"><button class="btn dark" id="chat">💬 ${UI === 'kk' ? 'Чатпен түзету' : 'Чат-правка'}</button><button class="btn ghost" id="rw">✎ ${L.rewrite}</button>${window.AEP_FIND_PHOTO ? `<button class="btn ghost" id="phs">🔎 ${L.newPhoto}</button>` : ''}<label class="btn ghost" for="phf">🖼 ${L.addPhoto}</label><input type="file" id="phf" accept="image/*" hidden>
         <button class="btn ghost" id="add">＋ ${L.addSlide}</button><button class="btn ghost" id="lay">▦ ${L.layoutBtn}</button><button class="btn ghost" id="dup">⧉ ${L.dup}</button><button class="btn ghost" id="undo" aria-label="${L.undo}">↶</button><button class="btn ghost" id="up" aria-label="${L.up}">↑</button><button class="btn ghost" id="down" aria-label="${L.down}">↓</button><button class="btn ghost" id="rm" aria-label="${L.del}">✕</button></div>
       <textarea class="in" id="notes" rows="3" placeholder="${L.notes}"></textarea></div></div>`;
   $('#back').onclick = () => go('library');
@@ -4833,7 +4856,7 @@ async function editor(id, preloaded) {
     const wish = await ask(L.rewrite, L.rewriteQ); if (wish === null) return;
     const btn = $('#rw'), old = btn.innerHTML; btn.disabled = true; btn.textContent = L.rewriteWait;
     try {
-      const style = styleOf(deck.styleId), s = deck.slides[cur], { image, images, ...plain } = s, job = {};
+      const style = styleOf(deck.styleId), s = deck.slides[cur], { image, images, ...plain } = s, job = { temperature: 0.3 };
       const r = await askJSON(`Перепиши один слайд презентации «${deck.title}» (тема: ${deck.topic}).\n${LANG[deck.lang] || LANG.ru}\nСтиль: «${style.name}».\n${RULES}\n\n${LAYOUT_SPEC}\n\nТекущий слайд №${cur + 1} из ${deck.slides.length}:\n${JSON.stringify(plain)}\n${wish.trim() ? 'Пожелание автора (выполни обязательно): ' + wish.trim() : 'Сделай его конкретнее, яснее и интереснее, исправь ошибки.'}\nСохрани layout «${s.layout}», если пожелание не просит другого. Верни только JSON: {"slide":{...}}`, job);
       const ns = normSlide({ ...(r.slide || r), layout: (r.slide || r).layout || s.layout });
       if (deck.lang === 'kk') await proofreadKk({ slides: [ns], title: deck.title }, job);
@@ -4842,9 +4865,88 @@ async function editor(id, preloaded) {
     } catch (e) { toast(e.message); }
     btn.disabled = false; btn.innerHTML = old;
   };
+  // ---------- chat edits: "на 6 слайде исправь текст", "удали 3 слайд", "добавь слайд про ..." ----------
+  $('#chat').onclick = () => {
+    const kk = UI === 'kk';
+    const ov = sheet(`<h3>${kk ? 'Чатпен түзету' : 'Чат-правка'}</h3><div class="sub">${kk ? 'Не өзгерту керек екенін жазыңыз: «6-слайдтағы тақырыпты қысқарт», «3-слайдты өшір», «соңына дереккөздер қос».' : 'Напишите, что изменить: «на 6 слайде исправь заголовок на …», «удали 3 слайд», «добавь после 4 слайд про …», «сократи текст на 2 слайде», «поменяй местами 5 и 6».'}</div>
+      <div id="ch-log" class="chlog"></div><textarea class="in" id="ch-v" rows="3"></textarea>
+      <div class="row2"><button class="btn ghost" id="ch-c">${L.close}</button><button class="btn dark" id="ch-s">${kk ? 'Жіберу' : 'Отправить'}</button></div>`);
+    ov.firstElementChild.classList.add('wide');
+    const log = $('#ch-log', ov), say = (who, txt) => { const d = document.createElement('div'); d.className = 'chmsg ' + who; d.textContent = txt; log.append(d); log.scrollTop = 1e9; };
+    $('#ch-c', ov).onclick = () => ov.remove();
+    $('#ch-v', ov).value = `${kk ? 'Слайд' : 'Слайд'} ${cur + 1}: `;
+    $('#ch-s', ov).onclick = async () => {
+      const msg = $('#ch-v', ov).value.trim(); if (!msg) return;
+      const btn = $('#ch-s', ov); btn.disabled = true; say('me', msg); $('#ch-v', ov).value = '';
+      try {
+        const res = await chatEdit(deck, msg, cur);
+        if (res.applied) { snap(); deck = res.deck; st = styleOf(deck.styleId); cur = Math.min(cur, deck.slides.length - 1); $('#dt').value = deck.title; redraw(); }
+        say('ai', res.reply || (res.applied ? (kk ? 'Дайын.' : 'Готово.') : (kk ? 'Өзгеріс жоқ.' : 'Ничего не изменено.')));
+      } catch (e) { say('ai', e.message); }
+      btn.disabled = false;
+    };
+  };
   $('#pptx').onclick = () => exportDeck('pptx', deck, st, $('#pptx'));
   $('#pdf').onclick = () => exportDeck('pdf', deck, st, $('#pdf'));
   thumbs(); select(0);
+}
+
+// Chat edit: the model gets the whole deck (texts only, numbered from 1) and the user's request, and returns
+// a list of operations. Every operation is checked here; only what was asked is changed, other slides stay as they are.
+const CHAT_RULES = `Ты — редактор готовой презентации. Пользователь пишет, что изменить. Выполни ТОЛЬКО то, что он просит.
+ЖЁСТКИЕ ПРАВИЛА:
+1. Слайды нумеруются с 1, как в поле n. «6 слайд», «шестой слайд», «слайд 6» — это n=6.
+2. Не трогай слайды и поля, о которых пользователь не просил. Не переписывай весь слайд, если просят поменять одно слово или заголовок — используй op "edit" только с нужными полями.
+3. Если пользователь дал точный текст — вставь его дословно, без улучшений.
+4. Не выдумывай факты, даты, имена, цифры, цитаты. Если для правки нужен факт, которого ты точно не знаешь, — не вставляй его, а объясни это в reply.
+5. Язык текста — язык презентации. Без markdown, эмодзи и номеров слайдов в тексте.
+6. Если просьба непонятна — ops: [] и в reply коротко спроси, что именно изменить.
+7. Соблюдай лимиты: заголовок до 10 слов, пункт до 28 слов, у макета не больше пунктов, чем указано в правилах макетов.
+Операции (поле ops, выполняются по порядку, номера — по исходной нумерации):
+- {"op":"edit","n":6,"fields":{"title":"...","items.1.text":"...","subtitle":"..."}} — заменить отдельные поля (пути через точку, индексы пунктов с 0).
+- {"op":"replace","n":6,"slide":{...полный слайд по правилам макетов...}} — переписать слайд целиком.
+- {"op":"insert","after":4,"slide":{...}} — новый слайд после слайда 4 (after:0 — в начало).
+- {"op":"delete","n":7}
+- {"op":"move","n":2,"to":5} — поставить слайд 2 на место 5.
+- {"op":"photo","n":3,"query":"английский запрос для фото"} — подобрать новое фото.
+- {"op":"title","value":"..."} — название всей презентации.
+Верни только JSON: {"reply":"одна-две фразы на языке пользователя: что сделано","ops":[...]}`;
+async function chatEdit(deck, msg, cur) {
+  const style = styleOf(deck.styleId);
+  const view_ = deck.slides.map((s, i) => { const { image, images, notes, ...plain } = s; return { n: i + 1, ...plain, hasPhoto: !!image?.src }; });
+  const job = { temperature: 0.2 };
+  const r = await askJSON(`${CHAT_RULES}\n\n${LANG[deck.lang] || LANG.ru}\nСтиль: «${style.name}».\n\n${LAYOUT_SPEC}\n\nПрезентация «${deck.title}» (тема: ${deck.topic || deck.title}), сейчас открыт слайд ${cur + 1}:\n${JSON.stringify(view_)}\n\nПросьба пользователя: ${msg}`, job);
+  const ops = Array.isArray(r.ops) ? r.ops : [];
+  if (!ops.length) return { applied: false, reply: String(r.reply || '') };
+  const d = JSON.parse(JSON.stringify(deck));
+  const orig = d.slides.slice(); // references by original number
+  const at = n => orig[(parseInt(n, 10) || 0) - 1];
+  const ALLOWED = /^(kicker|title|subtitle|text|quote|author|number|unit|source|tag|takeaway|label|notes|imageQuery|items\.\d+\.(title|text|value|points\.\d+)|box\.(title|points\.\d+)|chips\.(label|items\.\d+)|table\.(head\.\d+|rows\.\d+\.\d+)|chart\.labels\.\d+|images\.\d+\.caption)$/;
+  const setPath = (obj, path, val) => { const ks = path.split('.'); let o = obj; for (const k of ks.slice(0, -1)) { if (o[k] == null) o[k] = /^\d+$/.test(k) ? {} : {}; o = o[k]; } o[ks.at(-1)] = val; };
+  const changed = new Set(); let applied = 0;
+  const photoJobs = [];
+  for (const op of ops) {
+    const kind = op?.op;
+    if (kind === 'title' && op.value) { d.title = String(op.value).trim(); applied++; continue; }
+    if (kind === 'edit') { const s = at(op.n); if (!s || !op.fields) continue;
+      for (const [k, v] of Object.entries(op.fields)) if (ALLOWED.test(k) && typeof v === 'string' && v.trim()) { setPath(s, k, v.trim()); applied++; changed.add(s); } continue; }
+    if (kind === 'replace') { const s = at(op.n); if (!s || !op.slide) continue;
+      const ns = normSlide({ ...op.slide, layout: op.slide.layout || s.layout }); if (s.image) ns.image = s.image;
+      const k = d.slides.indexOf(s); if (k < 0) continue; d.slides[k] = ns; orig[orig.indexOf(s)] = ns; changed.add(ns); applied++; continue; }
+    if (kind === 'insert' && op.slide) { const ns = normSlide(op.slide); const ref = at(op.after); const k = ref ? d.slides.indexOf(ref) + 1 : 0;
+      d.slides.splice(k, 0, ns); changed.add(ns); applied++; if (ns.imageQuery) photoJobs.push([ns, ns.imageQuery]); continue; }
+    if (kind === 'delete') { const s = at(op.n); const k = d.slides.indexOf(s); if (k >= 0 && d.slides.length > 1) { d.slides.splice(k, 1); applied++; } continue; }
+    if (kind === 'move') { const s = at(op.n); const k = d.slides.indexOf(s); if (k < 0) continue; d.slides.splice(k, 1);
+      d.slides.splice(Math.max(0, Math.min(d.slides.length, (parseInt(op.to, 10) || 1) - 1)), 0, s); applied++; continue; }
+    if (kind === 'photo') { const s = at(op.n); if (s && op.query) photoJobs.push([s, String(op.query)]); continue; }
+  }
+  for (const [s, q] of photoJobs) {
+    if (!window.AEP_FIND_PHOTO) break;
+    try { const used = new Set(d.slides.map(x => x.image?.page).filter(Boolean)); const f = await window.AEP_FIND_PHOTO(q, '', used); if (f) { s.image = f; s.imageQuery = q; applied++; } } catch { }
+  }
+  if (!applied) return { applied: false, reply: String(r.reply || '') };
+  if (d.lang === 'kk' && changed.size) await proofreadKk({ slides: [...changed], title: d.title }, job);
+  return { applied: true, deck: d, reply: String(r.reply || '') };
 }
 
 // a phone photo: shrunk to 1600 px, kept in the artifact's asset store (else inline, smaller)
@@ -4977,7 +5079,7 @@ async function exportDeck(fmt, deck, st, btn) {
   try {
     await loadLib(fmt, fmt === 'pptx' ? 'https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js' : 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
     const est = AET.apply(st, deck.theme);
-    const css = SLIDES_CSS + '\n' + await fontCSS(est);
+    const css = SLIDES_CSS + '\n' + EXTRA_CSS + '\n' + await fontCSS(est);
     let out;
     if (fmt === 'pptx') { out = new PptxGenJS(); out.layout = 'LAYOUT_WIDE'; out.title = deck.title; }
     else out = new jspdf.jsPDF({ orientation: 'landscape', unit: 'px', format: [1920, 1080], hotfixes: ['px_scaling'] });
